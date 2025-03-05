@@ -1,8 +1,29 @@
 {
   "name": "client",
+  "version": "1.1.1",
   "private": true,
-  "version": "0.0.0",
+  "description": "Client part",
+  "keywords": [
+    "react",
+    "redux",
+    "typescript",
+    "frontend",
+    "firebase",
+    "social",
+    "media"
+  ],
+  "homepage": "https://github.com/PabloSan1997/FirebaseMySocialMedia#readme",
+  "bugs": {
+    "url": "https://github.com/PabloSan1997/FirebaseMySocialMedia/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PabloSan1997/FirebaseMySocialMedia.git"
+  },
+  "license": "ISC",
+  "author": "Pablo SG",
   "type": "module",
+  "main": "src/main.tsx",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -10,9 +31,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.6.0",
     "client": "file:",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^7.2.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
@@ -23,6 +47,7 @@
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^15.15.0",
+    "sass": "^1.85.1",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.24.1",
     "vite": "^6.2.0"
