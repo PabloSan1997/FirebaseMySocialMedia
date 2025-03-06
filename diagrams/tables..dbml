@@ -3,7 +3,7 @@ table users{
   id bigserial [primary key]
   username varchar(60) [unique]
   fullname varchar(80)
-  password varchar(60)
+  password varchar(500)
 }
 
 table sessions{
@@ -18,11 +18,11 @@ table sessions{
 table user_info{
   id bigserial [primary key]
   id_user bigint
-  description varchar(255)
+  description varchar(300)
   urlImage varchar(500)
   imagefilename varchar(255)
   born date
-  create_dount date
+  create_count date
 }
 
 table imagenes{
@@ -44,7 +44,7 @@ table likes{
 table comentarios{
   id bigserial [primary key]
   create_at date
-  coment varchar(255)
+  comment varchar(255)
   id_image bigint
   id_user bigint 
 }
