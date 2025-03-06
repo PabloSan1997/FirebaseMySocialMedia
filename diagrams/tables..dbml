@@ -1,9 +1,18 @@
 
 table users{
   id bigserial [primary key]
-  username varchar(60) unique
+  username varchar(60) [unique]
   fullname varchar(80)
   password varchar(60)
+}
+
+table sessions{
+  id bigserial [primary key]
+  token varchar(1000) [unique]
+  create_at date
+  update_at date
+  state boolean
+  id_user bigint
 }
 
 table user_info{
@@ -19,7 +28,7 @@ table user_info{
 table imagenes{
   id bigserial [primary key]
   url_image varchar(555)
-  imagefilename varchar(255)
+  imagefilename varchar(255) [unique]
   description varchar(255)
   id_user bidint
   create_at date
@@ -58,3 +67,4 @@ Ref : comentarios.id_user > users.id
 Ref : comentarios.id_image > imagenes.id
 Ref : users.id <> user_roles.id_user
 Ref : roles.id <> user_roles.id_role
+Ref : sessions.id_user > users.id
