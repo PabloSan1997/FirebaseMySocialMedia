@@ -1,9 +1,9 @@
 
+
 function App() {
 
-
   return (
-    <div className="hola">Client part</div>
+    <div className="hola">hola a todos</div>
   )
 }
 

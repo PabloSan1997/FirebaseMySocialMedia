@@ -1,0 +1,48 @@
+
+table users{
+  id bigserial [primary key]
+  username varchar(60) unique
+  fullname varchar(80)
+  password varchar(60)
+}
+
+table user_info{
+  id bigserial [primary key]
+  description varchar(255)
+  urlImage varchar(500)
+  imagefilename varchar(255)
+  born date
+  id_user bigint
+  create_dount date
+}
+
+table imagenes{
+  id bigserial [primary key]
+  url_image varchar(555)
+  imagefilename varchar(255)
+  description varchar(255)
+  id_user bidint
+  create_at date
+}
+
+table likes{
+  id bigserial [primary key]
+  create_at date
+  id_image bigint
+  id_user bigint 
+}
+
+table comentarios{
+  id bigserial [primary key]
+  create_at date
+  coment varchar(255)
+  id_image bigint
+  id_user bigint 
+}
+
+Ref : users.id - user_info.id_user
+Ref : imagenes.id_user > users.id
+Ref : likes.id_image > imagenes.id
+Ref : likes.id_user > users.id
+Ref : comentarios.id_user > users.id
+Ref : comentarios.id_image > imagenes.id
