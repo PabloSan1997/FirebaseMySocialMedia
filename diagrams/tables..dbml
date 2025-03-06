@@ -8,11 +8,11 @@ table users{
 
 table user_info{
   id bigserial [primary key]
+  id_user bigint
   description varchar(255)
   urlImage varchar(500)
   imagefilename varchar(255)
   born date
-  id_user bigint
   create_dount date
 }
 
@@ -40,9 +40,21 @@ table comentarios{
   id_user bigint 
 }
 
+table roles{
+  id bigserial [primary key]
+  name varchar(10) [unique]
+}
+
+table user_roles{
+  id_user bigint
+  id_role bigint
+}
+
 Ref : users.id - user_info.id_user
 Ref : imagenes.id_user > users.id
 Ref : likes.id_image > imagenes.id
 Ref : likes.id_user > users.id
 Ref : comentarios.id_user > users.id
 Ref : comentarios.id_image > imagenes.id
+Ref : users.id <> user_roles.id_user
+Ref : roles.id <> user_roles.id_role
