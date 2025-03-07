@@ -24,6 +24,7 @@ public class Users {
     private String fullname;
     @Column(length = 500)
     private String password;
+    private Boolean enabled;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Sessions> sessions;
@@ -48,4 +49,9 @@ public class Users {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comments> comments;
+
+    @PrePersist
+    public void prepersist(){
+        enabled = true;
+    }
 }
