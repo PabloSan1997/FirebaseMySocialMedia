@@ -1,5 +1,6 @@
 package com.mysocialmedia.firebase.service.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,6 +24,7 @@ public class Users {
     @Column(length = 80)
     private String fullname;
     @Column(length = 500)
+    @JsonIgnore
     private String password;
     private Boolean enabled;
 
@@ -49,6 +51,12 @@ public class Users {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comments> comments;
+
+    @OneToMany(mappedBy = "mainUser" , cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Follows> followings;
+
+    @OneToMany(mappedBy = "followingUser" , cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Follows> followers;
 
     @PrePersist
     public void prepersist(){

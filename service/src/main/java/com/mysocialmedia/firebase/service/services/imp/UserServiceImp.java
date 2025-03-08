@@ -1,27 +1,26 @@
 package com.mysocialmedia.firebase.service.services.imp;
 
 import com.mysocialmedia.firebase.service.exceptions.MyBadRequestException;
-import com.mysocialmedia.firebase.service.models.dtos.LoginDto;
-import com.mysocialmedia.firebase.service.models.dtos.RegisterDto;
-import com.mysocialmedia.firebase.service.models.dtos.SecurityDto;
-import com.mysocialmedia.firebase.service.models.dtos.TokenDto;
+import com.mysocialmedia.firebase.service.models.dtos.*;
 import com.mysocialmedia.firebase.service.models.entities.RoleEntity;
 import com.mysocialmedia.firebase.service.models.entities.Sessions;
+import com.mysocialmedia.firebase.service.models.entities.UserInfo;
 import com.mysocialmedia.firebase.service.models.entities.Users;
-import com.mysocialmedia.firebase.service.repositories.RoleRespository;
-import com.mysocialmedia.firebase.service.repositories.SessionRepository;
-import com.mysocialmedia.firebase.service.repositories.UserRepository;
+import com.mysocialmedia.firebase.service.repositories.*;
 import com.mysocialmedia.firebase.service.services.UserService;
 import com.mysocialmedia.firebase.service.services.utils.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +38,10 @@ public class UserServiceImp implements UserService {
     private JwtService jwtService;
     @Autowired
     private SessionRepository sessionRepository;
+    @Autowired
+    private UserInfoRepository userInfoRepository;
+    @Autowired
+    private FirebaseRepository firebaseRepository;
 
     @Override
     @Transactional
@@ -74,6 +77,7 @@ public class UserServiceImp implements UserService {
         RoleEntity role = roleRespository.findByName("USER")
                 .orElseThrow(()-> new RuntimeException("No existe rol"));
         roles.add(role);
+
         Users users = Users.builder()
                 .comments(new ArrayList<>())
                 .imagenes(new ArrayList<>())
@@ -82,10 +86,68 @@ public class UserServiceImp implements UserService {
                 .fullname(registerDto.getFullname())
                 .likes(new ArrayList<>())
                 .password(password).build();
-        Users newUser = userRepository.save(users);
 
+        Users newUser = userRepository.save(users);
+        UserInfo userInfo = UserInfo.builder().user(newUser).born(new Date())
+                .description("").imageFileName("").description("").urlImage("").build();
+        userInfoRepository.save(userInfo);
         return login(
                 LoginDto.builder().username(newUser.getUsername()).password(registerDto.getPassword()).build()
         );
+    }
+
+    @Override
+    @Transactional
+    public ShowFullUserDto viewUserInfo() {
+        Users user = getAuthenticationUser();
+        UserInfo userInfo = user.getUserInfo();
+        return new ShowFullUserDto(user, userInfo);
+    }
+
+    @Override
+    @Transactional
+    public ShowFullUserDto updateUserInfo(UpdateUserInfoDto userInfoDto) {
+        Users user = getAuthenticationUser();
+        UserInfo userInfo = user.getUserInfo();
+        userInfo.setBorn(userInfoDto.getBorn());
+        userInfo.setDescription(userInfoDto.getDescription());
+        UserInfo newUserinfo = userInfoRepository.save(userInfo);
+        return new ShowFullUserDto(user, newUserinfo);
+    }
+
+    @Override
+    @Transactional
+    public FirebaseDto updateProfilePicture(MultipartFile multipartFile) {
+        Users user = getAuthenticationUser();
+        UserInfo userInfo = user.getUserInfo();
+        try{
+            FirebaseDto firebaseDto = firebaseRepository.save(multipartFile);
+            firebaseRepository.deleteImage(userInfo.getImageFileName());
+            userInfo.setUrlImage(firebaseDto.getUrlImage());
+            userInfo.setImageFileName(firebaseDto.getFilename());
+            userInfoRepository.save(userInfo);
+            return firebaseDto;
+        }catch (Exception e){
+            throw new MyBadRequestException(e.getMessage());
+        }
+    }
+
+
+    @Override
+    @Transactional
+    public OnlyTitleUserDto viewUserHeader() {
+        Users user = getAuthenticationUser();
+        UserInfo userInfo = user.getUserInfo();
+        return OnlyTitleUserDto.builder()
+                .username(user.getUsername())
+                .fullname(user.getFullname())
+                .urlImage(userInfo.getUrlImage()).build();
+    }
+
+    Users getAuthenticationUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = (String) authentication.getPrincipal();
+        return userRepository.findByUsername(username)
+                .orElseThrow(()-> new RuntimeException("No existe el usuario autenticado"));
     }
 }

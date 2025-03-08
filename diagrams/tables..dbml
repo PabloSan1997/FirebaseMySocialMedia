@@ -59,6 +59,13 @@ table user_roles{
   id_role bigint
 }
 
+table follows{
+  id bigserial [primary key]
+  id_user1 bigint
+  id_user2 bigint
+  create_at date
+}
+
 Ref : users.id - user_info.id_user
 Ref : imagenes.id_user > users.id
 Ref : likes.id_image > imagenes.id
@@ -68,3 +75,5 @@ Ref : comentarios.id_image > imagenes.id
 Ref : users.id <> user_roles.id_user
 Ref : roles.id <> user_roles.id_role
 Ref : sessions.id_user > users.id
+Ref : follows."id_user1" > users.id
+Ref : follows."id_user2" > users.id

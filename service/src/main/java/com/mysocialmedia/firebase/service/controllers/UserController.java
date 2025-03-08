@@ -5,10 +5,7 @@ import com.mysocialmedia.firebase.service.models.dtos.RegisterDto;
 import com.mysocialmedia.firebase.service.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/user")
@@ -26,4 +23,14 @@ public class UserController {
     public ResponseEntity<?> register(@RequestBody RegisterDto registerDto){
         return ResponseEntity.ok(userService.register(registerDto));
     }
+
+    @GetMapping("/userinfo")
+    public ResponseEntity<?> findMyUserInfo(){
+        return ResponseEntity.ok(userService.viewUserInfo());
+    }
+    @GetMapping("/headeruser")
+    public ResponseEntity<?> getHeaderUser(){
+        return ResponseEntity.ok(userService.viewUserHeader());
+    }
+
 }

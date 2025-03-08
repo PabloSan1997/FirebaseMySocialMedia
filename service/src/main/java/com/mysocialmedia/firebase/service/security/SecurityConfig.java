@@ -52,11 +52,8 @@ public class SecurityConfig {
 
     @Bean
     CommandLineRunner commandLineRunner(InitialService initialService){
-        return new CommandLineRunner() {
-            @Override
-            public void run(String... args) throws Exception {
-                initialService.generateInformation();
-            }
+        return arg -> {
+            initialService.generateInformation();
         };
     }
 }
