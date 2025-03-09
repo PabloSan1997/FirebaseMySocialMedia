@@ -11,8 +11,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,23 +39,38 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http, JwtService jwtService) throws Exception {
         http.csrf(c->c.disable())
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                HttpMethod.POST,
-                                "/api/user/login",
-                                "/api/user/register"
-                        ).permitAll()
-                        .anyRequest().authenticated()
+                .authorizeHttpRequests(getCustomizer()
                 )
                 .addFilter(new JwtValidationFilter(authenticationManager(), jwtService))
                 .sessionManagement(s->s.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         return http.build();
     }
 
+
     @Bean
     CommandLineRunner commandLineRunner(InitialService initialService){
         return arg -> {
             initialService.generateInformation();
         };
+    }
+
+    private static Customizer<AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry> getCustomizer() {
+        return auth -> auth
+                .requestMatchers(
+                        HttpMethod.POST,
+                        "/api/user/imageprofile",
+                        "/api/user/profile"
+                ).hasRole("USER")
+                .requestMatchers(
+                        HttpMethod.GET,
+                        "/api/user/userinfo",
+                        "/api/user/headeruser"
+                ).hasRole("USER")
+                .requestMatchers(
+                        HttpMethod.POST,
+                        "/api/user/login",
+                        "/api/user/register"
+                ).permitAll()
+                .anyRequest().authenticated();
     }
 }

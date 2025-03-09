@@ -17,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
@@ -142,6 +143,17 @@ public class UserServiceImp implements UserService {
                 .username(user.getUsername())
                 .fullname(user.getFullname())
                 .urlImage(userInfo.getUrlImage()).build();
+    }
+
+    @Override
+    @Transactional
+    public void logout(String token) {
+        Users user = getAuthenticationUser();
+        Sessions session = sessionRepository
+                .findByUsernameAndToken(user.getUsername(), token)
+                .orElseThrow(()-> new RuntimeException("Error con la authenticacion"));
+        session.setState(false);
+        sessionRepository.save(session);
     }
 
     Users getAuthenticationUser(){
