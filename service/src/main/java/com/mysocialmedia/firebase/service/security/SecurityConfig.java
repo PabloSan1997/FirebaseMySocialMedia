@@ -59,12 +59,18 @@ public class SecurityConfig {
                 .requestMatchers(
                         HttpMethod.POST,
                         "/api/user/imageprofile",
-                        "/api/user/profile"
+                        "/api/user/profile",
+                        "/api/friend/{username}"
                 ).hasRole("USER")
                 .requestMatchers(
                         HttpMethod.GET,
                         "/api/user/userinfo",
-                        "/api/user/headeruser"
+                        "/api/user/headeruser",
+                        "/api/friend/mainfollows",
+                        "/api/friend/followsfriend/{username}",
+                        "/api/friend/folowers/{username}",
+                        "/api/friend/folowings/{username}",
+                        "/api/friend/viewfollow/{username}"
                 ).hasRole("USER")
                 .requestMatchers(
                         HttpMethod.POST,
