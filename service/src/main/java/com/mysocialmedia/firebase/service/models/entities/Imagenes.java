@@ -19,6 +19,7 @@ public class Imagenes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(length = 555)
     private String description;
     @Column(name = "create_At")
     private Date createAt;

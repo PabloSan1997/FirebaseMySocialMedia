@@ -68,8 +68,8 @@ public class SecurityConfig {
                         "/api/user/headeruser",
                         "/api/friend/mainfollows",
                         "/api/friend/followsfriend/{username}",
-                        "/api/friend/folowers/{username}",
-                        "/api/friend/folowings/{username}",
+                        "/api/friend/followers/{username}",
+                        "/api/friend/followings/{username}",
                         "/api/friend/viewfollow/{username}"
                 ).hasRole("USER")
                 .requestMatchers(

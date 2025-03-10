@@ -21,12 +21,12 @@ public class FreindController {
         return ResponseEntity.ok(friendServices.friendFollowingCount(username));
     }
 
-    @GetMapping("/folowers/{username}")
+    @GetMapping("/followers/{username}")
     public ResponseEntity<?> followersUser(@PathVariable String username){
         return ResponseEntity.ok(friendServices.findFollows(username, true));
     }
 
-    @GetMapping("/folowings/{username}")
+    @GetMapping("/followings/{username}")
     public ResponseEntity<?> followingsUser(@PathVariable String username){
         return ResponseEntity.ok(friendServices.findFollows(username, false));
     }

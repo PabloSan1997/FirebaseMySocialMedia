@@ -90,7 +90,7 @@ public class UserServiceImp implements UserService {
 
         Users newUser = userRepository.save(users);
         UserInfo userInfo = UserInfo.builder().user(newUser).born(new Date())
-                .description("").imageFileName("").description("").urlImage("").build();
+                .description("").imageFileName(null).description("").urlImage("").build();
         userInfoRepository.save(userInfo);
         return login(
                 LoginDto.builder().username(newUser.getUsername()).password(registerDto.getPassword()).build()

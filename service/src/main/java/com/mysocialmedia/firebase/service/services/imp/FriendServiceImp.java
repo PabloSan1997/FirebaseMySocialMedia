@@ -50,8 +50,11 @@ public class FriendServiceImp implements FriendServices {
     @Override
     @Transactional
     public FollowingCounts generateFolling(String usernameFriend) {
-        System.out.println(usernameFriend+"\n\n\n\n\n");
+
         Users user = getAuthenticationUser();
+        if(user.getUsername().equals(usernameFriend))
+            throw new MyBadRequestException("Un usuario no se puede seguir asi mismo");
+
         Users userFriend = findFriendUser(usernameFriend);
         Optional<Follows> ofollow = followRepository.findUserAndFollowing(
                 user.getUsername(),
@@ -75,7 +78,7 @@ public class FriendServiceImp implements FriendServices {
             List<Follows> follows = followRepository.findAllFollowers(username);
             return follows.stream()
                     .map(p -> {
-                        Users user = p.getFollowingUser();
+                        Users user = p.getMainUser();
                         UserInfo userInfo = user.getUserInfo();
                         return OnlyTitleUserDto.builder().username(user.getUsername())
                                 .fullname(user.getFullname())
@@ -85,7 +88,7 @@ public class FriendServiceImp implements FriendServices {
             List<Follows> follows = followRepository.findAllFollowings(username);
             return follows.stream()
                     .map(p -> {
-                        Users user = p.getMainUser();
+                        Users user = p.getFollowingUser();
                         UserInfo userInfo = user.getUserInfo();
                         return OnlyTitleUserDto.builder().username(user.getUsername())
                                 .fullname(user.getFullname())
