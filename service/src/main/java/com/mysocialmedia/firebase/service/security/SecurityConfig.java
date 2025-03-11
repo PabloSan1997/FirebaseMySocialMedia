@@ -60,7 +60,9 @@ public class SecurityConfig {
                         HttpMethod.POST,
                         "/api/user/imageprofile",
                         "/api/user/profile",
-                        "/api/friend/{username}"
+                        "/api/friend/{username}",
+                        "/api/image",
+                        "/api/interaction/like/{idImage}"
                 ).hasRole("USER")
                 .requestMatchers(
                         HttpMethod.GET,
@@ -70,7 +72,13 @@ public class SecurityConfig {
                         "/api/friend/followsfriend/{username}",
                         "/api/friend/followers/{username}",
                         "/api/friend/followings/{username}",
-                        "/api/friend/viewfollow/{username}"
+                        "/api/friend/viewfollow/{username}",
+                        "/api/image", "/api/image/{id}",
+                        "/api/image/user/{username}", "/api/image/user"
+                ).hasRole("USER")
+                .requestMatchers(
+                        HttpMethod.DELETE,
+                        "/api/image/{id}"
                 ).hasRole("USER")
                 .requestMatchers(
                         HttpMethod.POST,
