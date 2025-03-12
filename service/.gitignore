@@ -34,3 +34,4 @@ build/
 
 /src/main/resources/ejemplos-keys.json
 /src/main/resources/application-prod.properties
+/src/main/resources/application-dev.properties

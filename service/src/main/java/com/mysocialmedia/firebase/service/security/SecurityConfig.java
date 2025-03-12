@@ -19,6 +19,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 @Configuration
 public class SecurityConfig {
@@ -39,13 +43,25 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http, JwtService jwtService) throws Exception {
         http.csrf(c->c.disable())
-                .authorizeHttpRequests(getCustomizer()
-                )
+                .authorizeHttpRequests(getCustomizer())
+                .cors(c -> c.configurationSource(corsConfigurationSource()))
                 .addFilter(new JwtValidationFilter(authenticationManager(), jwtService))
                 .sessionManagement(s->s.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         return http.build();
     }
 
+    @Bean
+    UrlBasedCorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowedMethods(List.of("GET", "POST", "DELETE", "PATCH", "PUT"));
+        configuration.setAllowedOriginPatterns(List.of("*"));
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 
     @Bean
     CommandLineRunner commandLineRunner(InitialService initialService){

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Repository
@@ -27,7 +29,16 @@ public class FirebaseRepository {
     }
 
     public FirebaseDto save(MultipartFile file) throws IOException {
-        String name = UUID.randomUUID() + file.getOriginalFilename();
+        int limit = 8;
+        String prename = "";
+        if(Objects.requireNonNull(file.getOriginalFilename()).length()>limit){
+            List<String> viewName = List.of(file.getOriginalFilename().split(""));
+            List<String> last = viewName.subList(viewName.size()-limit, viewName.size());
+            prename = String.join("", last);
+        }else
+            prename = file.getOriginalFilename();
+
+        String name = UUID.randomUUID() + prename;
         String filename = foldername + "/" + name;
         Storage storage = getStorage();
         BlobId blobId = BlobId.of(bucketname, filename);
