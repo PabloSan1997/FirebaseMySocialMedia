@@ -1,14 +1,16 @@
 package com.mysocialmedia.firebase.service.services.imp;
 
 import com.mysocialmedia.firebase.service.exceptions.MyBadRequestException;
+import com.mysocialmedia.firebase.service.exceptions.MyFileBadRequestException;
 import com.mysocialmedia.firebase.service.models.dtos.*;
-import com.mysocialmedia.firebase.service.models.entities.Comments;
+
 import com.mysocialmedia.firebase.service.models.entities.Imagenes;
 import com.mysocialmedia.firebase.service.models.entities.LikeEntity;
 import com.mysocialmedia.firebase.service.models.entities.Users;
 import com.mysocialmedia.firebase.service.repositories.*;
 import com.mysocialmedia.firebase.service.services.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -33,9 +35,8 @@ public class ImageServiceImp implements ImageService {
 
     @Override
     @Transactional
-    public List<ShowImageDto> findAll() {
-        List<Imagenes> imagenes = (List<Imagenes>) imagenRespository.findAll();
-        Users user = getAuthenticationUser();
+    public List<ShowImageDto> findAll(Pageable pageable) {
+        List<Imagenes> imagenes = imagenRespository.findAllOrderByDate(pageable);
         return imagenes.stream()
                 .map(im -> {
                     Integer likes = likeRepository.countLikesImage(im.getId());
@@ -46,9 +47,9 @@ public class ImageServiceImp implements ImageService {
 
     @Override
     @Transactional
-    public List<ShowImageDto> findByUsername(String username) {
+    public List<ShowImageDto> findByUsername(String username, Pageable pageable) {
 
-        return imagenRespository.findAllByUsername(username).stream()
+        return imagenRespository.findAllByUsername(username, pageable).stream()
                 .map(im -> {
                     Integer likes = likeRepository.countLikesImage(im.getId());
                     Integer comments = commentRepository.countCommentsById(im.getId());
@@ -58,9 +59,9 @@ public class ImageServiceImp implements ImageService {
 
     @Override
     @Transactional
-    public List<ShowImageDto> findMainUser() {
+    public List<ShowImageDto> findMainUser(Pageable pageable) {
         Users user = getAuthenticationUser();
-        return imagenRespository.findAllByUsername(user.getUsername()).stream()
+        return imagenRespository.findAllByUsername(user.getUsername(), pageable).stream()
                 .map(im -> {
                     Integer likes = likeRepository.countLikesImage(im.getId());
                     Integer comments = commentRepository.countCommentsById(im.getId());
@@ -71,6 +72,10 @@ public class ImageServiceImp implements ImageService {
     @Override
     @Transactional
     public ShowImageDto saveImage(String description, MultipartFile multipartFile) {
+        int limit = 300;
+        String contentType = multipartFile.getContentType();
+        if(description.length() > limit || contentType == null || !contentType.startsWith("image/"))
+            throw new MyFileBadRequestException();
         Users user = getAuthenticationUser();
         try {
             FirebaseDto firebaseDto = firebaseRepository.save(multipartFile);
@@ -103,11 +108,11 @@ public class ImageServiceImp implements ImageService {
 
     @Override
     @Transactional
-    public ShowOneImageDto findImageById(Long id) {
+    public ShowOneImageDto findImageById(Long id, Pageable pageableComments) {
         Imagenes imagenes = imagenRespository.findById(id)
                 .orElseThrow(() -> new MyBadRequestException("Id invalido"));
         Integer likes = likeRepository.countLikesImage(id);
-        List<ShowCommentDto> comments = commentRepository.findAllByIdImage(id).stream()
+        List<ShowCommentDto> comments = commentRepository.findAllByIdImage(id, pageableComments).stream()
                 .map(p -> ShowCommentDto.builder()
                         .comment(p.getComment()).id(p.getId()).createAt(p.getCreateAt())
                         .user(

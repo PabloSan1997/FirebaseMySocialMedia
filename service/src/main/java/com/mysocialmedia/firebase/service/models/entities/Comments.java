@@ -19,6 +19,7 @@ public class Comments {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(length = 300)
     private String comment;
     @Column(name = "create_At")
     private Date createAt;

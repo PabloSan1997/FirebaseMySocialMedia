@@ -12,6 +12,7 @@ import com.mysocialmedia.firebase.service.repositories.FollowRepository;
 import com.mysocialmedia.firebase.service.repositories.UserRepository;
 import com.mysocialmedia.firebase.service.services.FriendServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -73,9 +74,9 @@ public class FriendServiceImp implements FriendServices {
 
     @Override
     @Transactional
-    public List<OnlyTitleUserDto> findFollows(String username, Boolean isFollowers) {
+    public List<OnlyTitleUserDto> findFollows(String username, Boolean isFollowers, Pageable pageable) {
         if (isFollowers) {
-            List<Follows> follows = followRepository.findAllFollowers(username);
+            List<Follows> follows = followRepository.findAllFollowers(username, pageable);
             return follows.stream()
                     .map(p -> {
                         Users user = p.getMainUser();
@@ -85,7 +86,7 @@ public class FriendServiceImp implements FriendServices {
                                 .urlImage(userInfo.getUrlImage()).build();
                     }).toList();
         } else {
-            List<Follows> follows = followRepository.findAllFollowings(username);
+            List<Follows> follows = followRepository.findAllFollowings(username, pageable);
             return follows.stream()
                     .map(p -> {
                         Users user = p.getFollowingUser();

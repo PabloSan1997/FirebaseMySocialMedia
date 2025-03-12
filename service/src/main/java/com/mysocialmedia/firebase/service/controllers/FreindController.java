@@ -2,6 +2,7 @@ package com.mysocialmedia.firebase.service.controllers;
 
 import com.mysocialmedia.firebase.service.services.FriendServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,13 +23,13 @@ public class FreindController {
     }
 
     @GetMapping("/followers/{username}")
-    public ResponseEntity<?> followersUser(@PathVariable String username){
-        return ResponseEntity.ok(friendServices.findFollows(username, true));
+    public ResponseEntity<?> followersUser(@PathVariable String username, Pageable pageable){
+        return ResponseEntity.ok(friendServices.findFollows(username, true, pageable));
     }
 
     @GetMapping("/followings/{username}")
-    public ResponseEntity<?> followingsUser(@PathVariable String username){
-        return ResponseEntity.ok(friendServices.findFollows(username, false));
+    public ResponseEntity<?> followingsUser(@PathVariable String username, Pageable pageable){
+        return ResponseEntity.ok(friendServices.findFollows(username, false, pageable));
     }
     @GetMapping("/viewfollow/{username}")
     public ResponseEntity<?> viewFollos(@PathVariable String username){

@@ -1,6 +1,7 @@
 package com.mysocialmedia.firebase.service.services.imp;
 
 import com.mysocialmedia.firebase.service.exceptions.MyBadRequestException;
+import com.mysocialmedia.firebase.service.exceptions.MyFileBadRequestException;
 import com.mysocialmedia.firebase.service.models.dtos.*;
 import com.mysocialmedia.firebase.service.models.entities.RoleEntity;
 import com.mysocialmedia.firebase.service.models.entities.Sessions;
@@ -121,6 +122,9 @@ public class UserServiceImp implements UserService {
     public FirebaseDto updateProfilePicture(MultipartFile multipartFile) {
         Users user = getAuthenticationUser();
         UserInfo userInfo = user.getUserInfo();
+        String contentType = multipartFile.getContentType();
+        if(contentType == null || !contentType.startsWith("image/"))
+            throw new MyFileBadRequestException();
         try{
             FirebaseDto firebaseDto = firebaseRepository.save(multipartFile);
             firebaseRepository.deleteImage(userInfo.getImageFileName());

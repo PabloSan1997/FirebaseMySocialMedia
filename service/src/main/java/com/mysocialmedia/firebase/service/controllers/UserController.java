@@ -5,6 +5,7 @@ import com.mysocialmedia.firebase.service.models.dtos.RegisterDto;
 import com.mysocialmedia.firebase.service.models.dtos.UpdateUserInfoDto;
 import com.mysocialmedia.firebase.service.services.UserService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,12 +19,12 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginDto loginDto){
+    public ResponseEntity<?> login(@Valid @RequestBody LoginDto loginDto){
         return ResponseEntity.ok(userService.login(loginDto));
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterDto registerDto){
+    public ResponseEntity<?> register(@Valid @RequestBody RegisterDto registerDto){
         return ResponseEntity.ok(userService.register(registerDto));
     }
     @PostMapping("/logout")
@@ -38,7 +39,7 @@ public class UserController {
         return ResponseEntity.ok(userService.updateProfilePicture(multipartFile));
     }
     @PostMapping("/profile")
-    public ResponseEntity<?> addUrlImage(@RequestBody UpdateUserInfoDto updateUserInfoDto){
+    public ResponseEntity<?> addUrlImage(@Valid @RequestBody UpdateUserInfoDto updateUserInfoDto){
         return ResponseEntity.ok(userService.updateUserInfo(updateUserInfoDto));
     }
     @GetMapping("/userinfo")

@@ -2,6 +2,7 @@ package com.mysocialmedia.firebase.service.controllers;
 
 import com.mysocialmedia.firebase.service.models.dtos.CommentDto;
 import com.mysocialmedia.firebase.service.services.InteractionService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class InteractionController {
         return ResponseEntity.ok(interactionService.generateLike(id));
     }
     @PostMapping("/comment/{idImage}")
-    public ResponseEntity<?> generateComment(@RequestBody CommentDto commentDto, @PathVariable("idImage") Long id){
+    public ResponseEntity<?> generateComment(@RequestBody @Valid CommentDto commentDto, @PathVariable("idImage") Long id){
         var res = interactionService.saveComment(id, commentDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(res);
     }
