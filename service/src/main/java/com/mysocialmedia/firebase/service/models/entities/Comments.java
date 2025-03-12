@@ -28,4 +28,9 @@ public class Comments {
     @ManyToOne
     @JoinColumn(name = "id_user")
     private Users user;
+
+    @PrePersist
+    public void prepersist(){
+        createAt = new Date();
+    }
 }

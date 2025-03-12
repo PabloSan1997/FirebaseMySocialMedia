@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CommentRepository extends CrudRepository<Comments, Long> {
 
@@ -14,5 +15,8 @@ public interface CommentRepository extends CrudRepository<Comments, Long> {
 
     @Query("select c from Comments c where c.imagen.id=?1")
     List<Comments> findAllByIdImage(Long idImage);
+
+    @Query("select c from Comments c where c.id=?1 and c.user.username=?2")
+    Optional<Comments> findByIdAndUsernmae(Long idComment, String username);
 
 }

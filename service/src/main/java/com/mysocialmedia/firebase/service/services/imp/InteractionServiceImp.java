@@ -1,7 +1,11 @@
 package com.mysocialmedia.firebase.service.services.imp;
 
 import com.mysocialmedia.firebase.service.exceptions.MyBadRequestException;
+import com.mysocialmedia.firebase.service.models.dtos.CommentDto;
 import com.mysocialmedia.firebase.service.models.dtos.LikeDto;
+import com.mysocialmedia.firebase.service.models.dtos.OnlyTitleUserDto;
+import com.mysocialmedia.firebase.service.models.dtos.ShowCommentDto;
+import com.mysocialmedia.firebase.service.models.entities.Comments;
 import com.mysocialmedia.firebase.service.models.entities.Imagenes;
 import com.mysocialmedia.firebase.service.models.entities.LikeEntity;
 import com.mysocialmedia.firebase.service.models.entities.Users;
@@ -46,6 +50,36 @@ public class InteractionServiceImp implements InteractionService {
         likeRepository.save(like);
         return LikeDto.builder()
                 .userLike(true).idImage(idImage).build();
+    }
+
+    @Override
+    @Transactional
+    public ShowCommentDto saveComment(Long idImage, CommentDto commentDto) {
+        Imagenes imagen = imagenRespository.findById(idImage)
+                .orElseThrow(()-> new MyBadRequestException("Id invalido"));
+        Users user = getAuthenticationUser();
+        OnlyTitleUserDto titleUser = OnlyTitleUserDto.builder()
+                .username(user.getUsername())
+                .fullname(user.getFullname())
+                .urlImage(user.getUserInfo().getUrlImage()).build();
+        Comments precomment = Comments.builder()
+                .comment(commentDto.getComment())
+                .imagen(imagen)
+                .user(user).build();
+        Comments comment = commentRepository.save(precomment);
+        return ShowCommentDto.builder()
+                .user(titleUser).comment(comment.getComment())
+                .createAt(comment.getCreateAt()).id(comment.getId()).build();
+    }
+
+    @Override
+    @Transactional
+    public void deleteComment(Long idComment) {
+        Users user = getAuthenticationUser();
+        commentRepository.findByIdAndUsernmae(idComment, user.getUsername())
+                .ifPresent(p -> {
+                    commentRepository.deleteById(p.getId());
+                });
     }
 
     private Users getAuthenticationUser(){

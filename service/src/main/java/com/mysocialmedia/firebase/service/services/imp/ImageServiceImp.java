@@ -1,10 +1,7 @@
 package com.mysocialmedia.firebase.service.services.imp;
 
 import com.mysocialmedia.firebase.service.exceptions.MyBadRequestException;
-import com.mysocialmedia.firebase.service.models.dtos.FirebaseDto;
-import com.mysocialmedia.firebase.service.models.dtos.OnlyTitleUserDto;
-import com.mysocialmedia.firebase.service.models.dtos.ShowImageDto;
-import com.mysocialmedia.firebase.service.models.dtos.ShowOneImageDto;
+import com.mysocialmedia.firebase.service.models.dtos.*;
 import com.mysocialmedia.firebase.service.models.entities.Comments;
 import com.mysocialmedia.firebase.service.models.entities.Imagenes;
 import com.mysocialmedia.firebase.service.models.entities.LikeEntity;
@@ -40,10 +37,10 @@ public class ImageServiceImp implements ImageService {
         List<Imagenes> imagenes = (List<Imagenes>) imagenRespository.findAll();
         Users user = getAuthenticationUser();
         return imagenes.stream()
-                .map(im ->{
-                   Integer likes = likeRepository.countLikesImage(im.getId());
-                   Integer comments = commentRepository.countCommentsById(im.getId());
-                   return changeShowImageDto(im, im.getUser(), likes, comments);
+                .map(im -> {
+                    Integer likes = likeRepository.countLikesImage(im.getId());
+                    Integer comments = commentRepository.countCommentsById(im.getId());
+                    return changeShowImageDto(im, im.getUser(), likes, comments);
                 }).toList();
     }
 
@@ -75,7 +72,7 @@ public class ImageServiceImp implements ImageService {
     @Transactional
     public ShowImageDto saveImage(String description, MultipartFile multipartFile) {
         Users user = getAuthenticationUser();
-        try{
+        try {
             FirebaseDto firebaseDto = firebaseRepository.save(multipartFile);
             var imagenes = Imagenes.builder()
                     .description(description)
@@ -84,7 +81,7 @@ public class ImageServiceImp implements ImageService {
                     .user(user).build();
             var newImage = imagenRespository.save(imagenes);
             return changeShowImageDto(newImage, user, 0, 0);
-        }catch(Exception e){
+        } catch (Exception e) {
             throw new MyBadRequestException(e.getMessage());
         }
     }
@@ -94,11 +91,11 @@ public class ImageServiceImp implements ImageService {
     public void deleteImageById(Long id) {
         Users user = getAuthenticationUser();
         imagenRespository.findByUsernameAndIdImage(user.getUsername(), id).ifPresentOrElse(
-                (im)->{
+                (im) -> {
                     firebaseRepository.deleteImage(im.getImageFileName());
                     imagenRespository.deleteById(im.getId());
                 },
-                ()-> {
+                () -> {
                     throw new MyBadRequestException("id invalido");
                 }
         );
@@ -108,22 +105,32 @@ public class ImageServiceImp implements ImageService {
     @Transactional
     public ShowOneImageDto findImageById(Long id) {
         Imagenes imagenes = imagenRespository.findById(id)
-                .orElseThrow(()-> new MyBadRequestException("Id invalido"));
+                .orElseThrow(() -> new MyBadRequestException("Id invalido"));
         Integer likes = likeRepository.countLikesImage(id);
-        List<Comments> comments = commentRepository.findAllByIdImage(id);
+        List<ShowCommentDto> comments = commentRepository.findAllByIdImage(id).stream()
+                .map(p -> ShowCommentDto.builder()
+                        .comment(p.getComment()).id(p.getId()).createAt(p.getCreateAt())
+                        .user(
+                                OnlyTitleUserDto.builder()
+                                        .urlImage(p.getUser().getUserInfo().getUrlImage())
+                                        .fullname(p.getUser().getFullname())
+                                        .username(p.getUser().getUsername())
+                                        .build()
+                        ).build()
+                ).toList();
         ShowImageDto showImageDto = changeShowImageDto(imagenes, imagenes.getUser(), likes, 0);
         return new ShowOneImageDto(showImageDto, comments);
 
     }
 
-    private Users getAuthenticationUser(){
+    private Users getAuthenticationUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = (String) authentication.getPrincipal();
         return userRepository.findByUsername(username)
-                .orElseThrow(()-> new RuntimeException("Error con la autenticacion de usuario"));
+                .orElseThrow(() -> new RuntimeException("Error con la autenticacion de usuario"));
     }
 
-    private ShowImageDto changeShowImageDto(Imagenes imagenes, Users user, Integer likes, Integer comments){
+    private ShowImageDto changeShowImageDto(Imagenes imagenes, Users user, Integer likes, Integer comments) {
         Users authUser = getAuthenticationUser();
         Optional<LikeEntity> opLike = likeRepository.findByImageAndUsername(imagenes.getId(), authUser.getUsername());
         OnlyTitleUserDto onlyTitleUserDto = OnlyTitleUserDto.builder()

@@ -62,7 +62,8 @@ public class SecurityConfig {
                         "/api/user/profile",
                         "/api/friend/{username}",
                         "/api/image",
-                        "/api/interaction/like/{idImage}"
+                        "/api/interaction/like/{idImage}",
+                        "/api/interaction/comment/{idImage}"
                 ).hasRole("USER")
                 .requestMatchers(
                         HttpMethod.GET,
@@ -78,7 +79,8 @@ public class SecurityConfig {
                 ).hasRole("USER")
                 .requestMatchers(
                         HttpMethod.DELETE,
-                        "/api/image/{id}"
+                        "/api/image/{id}",
+                        "/api/interaction/comment/{idComment}"
                 ).hasRole("USER")
                 .requestMatchers(
                         HttpMethod.POST,

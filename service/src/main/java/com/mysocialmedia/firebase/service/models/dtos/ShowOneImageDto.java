@@ -18,12 +18,12 @@ public class ShowOneImageDto {
     private String urlImage;
     private String description;
     private Integer likes;
-    private List<Comments> comments;
+    private List<ShowCommentDto> comments;
     private Date createAt;
     private OnlyTitleUserDto user;
     private Boolean userLike;
 
-    public ShowOneImageDto(ShowImageDto showImageDto, List<Comments> comments){
+    public ShowOneImageDto(ShowImageDto showImageDto, List<ShowCommentDto> comments){
         this.id = showImageDto.getId();
         this.urlImage = showImageDto.getUrlImage();
         this.description = showImageDto.getDescription();
