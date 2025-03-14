@@ -31,7 +31,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^2.6.0",
+    "@reduxjs/toolkit": "^2.6.1",
     "client": "file:",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

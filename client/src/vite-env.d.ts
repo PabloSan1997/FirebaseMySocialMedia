@@ -91,3 +91,18 @@ interface LikeResponse{
     idImage:number;
     userLike:boolean
 }
+
+interface ErrorDto{
+    statusCode:number;
+    error:string;
+    message:string;
+    timestamp:string;
+}
+
+//-------------Initial State--------
+interface UserInitialState{
+    token:string;
+    userHeader:UserHeader;
+    userInfo:UserInfo;
+    message:string;
+}

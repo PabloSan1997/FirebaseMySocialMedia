@@ -1,9 +1,13 @@
+import { Header } from "./components/Header"
+import RoutesIndex from "./RoutesIndex"
 
 
 function App() {
 
   return (
-    <div className="hola">hola a todos</div>
+    <RoutesIndex>
+      <Header />
+    </RoutesIndex>
   )
 }
 
