@@ -12,8 +12,14 @@ public class FreindController {
     @Autowired
     private FriendServices friendServices;
 
+    @GetMapping("/infouser/{username}")
+    public ResponseEntity<?> findUserInfoFriend(@PathVariable String username){
+        return ResponseEntity.ok(friendServices.findUserFriend(username));
+    }
+
     @GetMapping("/mainfollows")
     public ResponseEntity<?> findMyFollows(){
+
         return ResponseEntity.ok(friendServices.mainUserFollowingCount());
     }
 
