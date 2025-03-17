@@ -74,7 +74,7 @@ public class ImageServiceImp implements ImageService {
     public ShowImageDto saveImage(String description, MultipartFile multipartFile) {
         int limit = 300;
         String contentType = multipartFile.getContentType();
-        if(description.length() > limit || contentType == null || !contentType.startsWith("image/"))
+        if(description.trim().isEmpty() || description.length() > limit || contentType == null || !contentType.startsWith("image/"))
             throw new MyFileBadRequestException();
         Users user = getAuthenticationUser();
         try {

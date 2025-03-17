@@ -71,7 +71,7 @@ public class ExceptionController {
         return ResponseEntity.status(errorDto.getStatusCode()).body(errorDto);
     }
 
-    @ExceptionHandler(RuntimeException.class)
+    @ExceptionHandler({RuntimeException.class, Exception.class})
     public ResponseEntity<?> internalServerError(RuntimeException e){
         ErrorDto errorDto = new ErrorDto(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         return ResponseEntity.status(errorDto.getStatusCode()).body(errorDto);
