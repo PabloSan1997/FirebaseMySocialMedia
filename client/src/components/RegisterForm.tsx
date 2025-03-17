@@ -37,7 +37,7 @@ export function RegisterForm() {
         }
     }
     return (
-        <form className="login" onSubmit={submit}>
+        <form className="login register" onSubmit={submit}>
             <h2>Register</h2>
             <label htmlFor="usernameregister">Username</label>
             <input

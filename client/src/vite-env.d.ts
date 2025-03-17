@@ -106,3 +106,10 @@ interface UserInitialState{
     userInfo:UserInfo;
     message:string;
 }
+
+interface SocialInitialState{
+    perfilUser:UserInfo;
+    images:ImagenInterface[];
+    oneImage:OneImagenInterface;
+    message:string;
+}

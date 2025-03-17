@@ -1,8 +1,8 @@
 import { ActionReducerMapBuilder, createAsyncThunk } from "@reduxjs/toolkit";
 import { loginStorage } from "../../utils/loginStorage";
+import { apiBase } from "./properties";
 
 
-const apiBase = 'http://localhost:3005/api';
 export const userApi = {
     login: createAsyncThunk(
         'extraReducer/login',
