@@ -42,6 +42,44 @@ export const socialApi = {
                 throw {message:err.message};
             }
         }
+    ),
+    findOneImage:createAsyncThunk(
+        'extraReducer/findOneImage',
+        async ({token, idImage, page}:{token:string, page:number, idImage:number}):Promise<OneImagenInterface>=>{
+            try {
+                const ft = await fetch(`${apiBase}/image/${idImage}?page=${page}&size=${size}`,{
+                    method:'GET',
+                    headers:{
+                        'Authorization':`Bearer ${token}`
+                    }
+                });
+                if(!ft.ok)
+                    throw await ft.json();
+                return ft.json();
+            } catch (error) {
+                const err = error as ErrorDto;
+                throw {message:err.message};
+            }
+        }
+    ),
+    addComment:createAsyncThunk(
+        'extraReducer/addcomment',
+        async ({token,idImage, comment}:{token:string, idImage:number, comment:string}):Promise<CommentInterface>=>{
+            const data:SaveComment = {
+                comment
+            }
+            const ft = await fetch(`${apiBase}/interaction/comment/${idImage}`, {
+                method:'POST',
+                headers:{
+                    'Authorization':`Bearer ${token}`,
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify(data)
+            });
+            if(!ft.ok)
+                throw await ft.json();
+            return ft.json();
+        }
     )
 }
 
@@ -62,5 +100,13 @@ export function generateSocialExtraReducer(builder:ActionReducerMapBuilder<Socia
     builder.addCase(socialApi.saveNewImage.rejected, (state, action)=>{
         const message = action.error.message;
         state.message = message?message:'Error al enviar publicacion';
+    });
+    
+    builder.addCase(socialApi.findOneImage.fulfilled, (state, action)=>{
+        state.oneImage = action.payload;
+    });
+
+    builder.addCase(socialApi.addComment.fulfilled, (state, action)=>{
+        state.oneImage.comments = [action.payload, ...state.oneImage.comments];
     });
 }

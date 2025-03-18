@@ -3,5 +3,7 @@
 export const routesName = {
     login:'/login',
     perfil:'/perfil',
-    home:'/home'
+    home:'/home',
+    oneImage:'/oneimage',
+    editperfil:'/editperfil'
 }

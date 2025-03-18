@@ -4,6 +4,9 @@ import { Login } from "./layouts/Login";
 import Home from "./layouts/Home";
 import { useAppSelector } from "./redux/hook";
 import { JSX } from "react";
+import { Perfil } from "./layouts/Perfil";
+import { OneImage } from "./layouts/OneImage";
+import { EditPerfil } from "./layouts/EditPerfil";
 
 function ViewDataToken() {
   const token = useAppSelector(state => state.user.token);
@@ -43,12 +46,36 @@ const Routes = () => useRoutes([
     )
   },
   {
+    path: routesName.perfil,
+    element: (
+      <ViewToken>
+        <Perfil />
+      </ViewToken>
+    )
+  },
+  {
+    path: routesName.oneImage,
+    element: (
+      <ViewToken>
+        <OneImage />
+      </ViewToken>
+    )
+  },
+  {
+    path:routesName.editperfil,
+    element:(
+      <ViewToken>
+        <EditPerfil/>
+      </ViewToken>
+    )
+  },
+  {
     path: '/',
     element: <ViewDataToken />
   }
 ]);
 
-export default function RoutesIndex({children}:{children:JSX.Element[]|JSX.Element}) {
+export default function RoutesIndex({ children }: { children: JSX.Element[] | JSX.Element }) {
   return (
     <HashRouter>
       {children}
