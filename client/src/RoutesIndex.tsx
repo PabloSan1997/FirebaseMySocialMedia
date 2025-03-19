@@ -7,6 +7,7 @@ import { JSX } from "react";
 import { Perfil } from "./layouts/Perfil";
 import { OneImage } from "./layouts/OneImage";
 import { EditPerfil } from "./layouts/EditPerfil";
+import { PerfilFriend } from "./layouts/PerfilFriend";
 
 function ViewDataToken() {
   const token = useAppSelector(state => state.user.token);
@@ -72,6 +73,14 @@ const Routes = () => useRoutes([
   {
     path: '/',
     element: <ViewDataToken />
+  },
+  {
+    path:routesName.perfilfriend,
+    element:(
+      <ViewToken>
+        <PerfilFriend/>
+      </ViewToken>
+    )
   }
 ]);
 

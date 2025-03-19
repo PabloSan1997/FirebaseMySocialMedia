@@ -5,5 +5,6 @@ export const routesName = {
     perfil:'/perfil',
     home:'/home',
     oneImage:'/oneimage',
-    editperfil:'/editperfil'
+    editperfil:'/editperfil',
+    perfilfriend:'/friend'
 }

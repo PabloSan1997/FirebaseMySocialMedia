@@ -187,4 +187,8 @@ export function generateUserExtraReducer(builder:ActionReducerMapBuilder<UserIni
             loginStorage.save('');
         }
     });
+
+    builder.addCase(userApi.mainUserInfo.fulfilled, (state, aciton)=>{
+        state.userInfo = aciton.payload;
+    });
 }

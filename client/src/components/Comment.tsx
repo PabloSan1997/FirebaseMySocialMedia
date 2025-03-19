@@ -1,3 +1,4 @@
+import { UserTitle } from "./UserTitle"
 
 
 
@@ -5,7 +6,7 @@
 export  function Comment({comment, user}:CommentInterface) {
   return (
     <div className="comments">
-      <h3>{user.username}</h3>
+        <UserTitle {...user}/>
         <p>{comment}</p>
     </div>
   );

@@ -80,6 +80,34 @@ export const socialApi = {
                 throw await ft.json();
             return ft.json();
         }
+    ),
+    findFriendImages:createAsyncThunk(
+        'extraReducer/findFriendImages',
+        async ({token, friendname, page}:{token:string, friendname:string, page:number}):Promise<ImagenInterface[]>=>{
+            const ft = await fetch(`${apiBase}/image/user/${friendname}?size=${size}&page=${page}`, {
+                method:'GET',
+                headers:{
+                    'Authorization':`Bearer ${token}`,
+                }
+            });
+            if(!ft.ok)
+                throw await ft.json();
+            return ft.json();
+        }
+    ),
+    findFriendInfo:createAsyncThunk(
+        'extraReducer/findFriendInformation',
+        async ({token, friendname}:{token:string, friendname:string}):Promise<UserInfo>=>{
+            const ft = await fetch(`${apiBase}/friend/infouser/${friendname}`, {
+                method:'GET',
+                headers:{
+                    'Authorization':`Bearer ${token}`
+                }
+            });
+            if(!ft.ok)
+                throw await ft.json();
+            return ft.json();
+        }
     )
 }
 
@@ -108,5 +136,13 @@ export function generateSocialExtraReducer(builder:ActionReducerMapBuilder<Socia
 
     builder.addCase(socialApi.addComment.fulfilled, (state, action)=>{
         state.oneImage.comments = [action.payload, ...state.oneImage.comments];
+    });
+
+    builder.addCase(socialApi.findFriendImages.fulfilled, (state, action)=>{
+        state.images = action.payload;
+    });
+
+    builder.addCase(socialApi.findFriendInfo.fulfilled, (state, action)=>{
+        state.perfilUser = action.payload;
     });
 }
