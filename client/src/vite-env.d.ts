@@ -60,7 +60,8 @@ interface OneImagenInterface{
     likes:number;
     comments:CommentInterface[],
     userLike:boolean;
-    user:UserHeader
+    user:UserHeader;
+    createAt:string;
 }
 
 
@@ -72,7 +73,8 @@ interface ImagenInterface{
     likes:number;
     comments:number;
     userLike:boolean;
-    user:UserHeader
+    user:UserHeader;
+    createAt:string;
 }
 
 interface CommentInterface {

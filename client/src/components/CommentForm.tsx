@@ -1,5 +1,5 @@
 
-
+import '../styles/comment_form.scss';
 import React from "react";
 import { useAppDispatch } from "../redux/hook";
 import { socialApi } from "../redux/extraReducers/socialApi";
@@ -15,9 +15,9 @@ export function CommentForm({ idImage, token }: { idImage: number, token: string
     return (
         <form className="comment_form" onSubmit={submit}>
             <label htmlFor="newcomment">Nuevo Comentario</label>
-            <input
-                type="text"
+            <textarea
                 placeholder="Escribir..."
+                className='textpadding'
                 value={comment}
                 onChange={e => setComment(e.target.value)}
             />

@@ -1,0 +1,37 @@
+header{
+    display: flex;
+    height: 3rem;
+    h1{
+        margin: auto 1rem;
+        cursor: pointer;
+        user-select: none;
+        transition: transform 0.3s ease;
+        &:hover{
+            transform: scale(1.1);
+        }
+    }
+    .user_header{
+        margin: auto 1rem auto auto;
+        display: flex;
+        transition: transform 0.3s ease;
+        text-decoration: none;
+        color: black;
+        &:hover{
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+        .name_user{
+            margin: auto;
+            user-select: none;
+        }
+        img{
+            width: 2rem;
+            height: 2rem;
+            border-radius: 100%;
+            margin-right: 0.3rem;
+        }
+    }
+    .logout{
+        margin: auto 1rem;
+    }
+}

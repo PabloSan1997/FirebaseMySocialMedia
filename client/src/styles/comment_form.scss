@@ -1,0 +1,14 @@
+.comment_form{
+    display: flex;
+    flex-direction: column;
+    margin-top:1rem;
+    label{
+        margin-bottom: 0.4rem;
+    }
+    textarea{
+        resize: none;
+    }
+    button{
+        margin:0.5rem auto auto 0;
+    }
+}

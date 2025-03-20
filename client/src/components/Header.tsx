@@ -1,5 +1,5 @@
 
-
+import '../styles/header.scss';
 import { useAppSelector } from "../redux/hook";
 import { HeaderInfoUser } from "./HeaderInfoUser";
 import { Logout } from "./Logout";

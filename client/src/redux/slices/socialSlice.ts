@@ -24,7 +24,8 @@ const initialState: SocialInitialState = {
             username: "",
             fullname: "",
             urlImage: ""
-        }
+        },
+        createAt: ""
     }
 }
 

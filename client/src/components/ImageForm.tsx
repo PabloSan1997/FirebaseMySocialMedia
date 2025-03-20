@@ -1,5 +1,5 @@
 
-
+import '../styles/image_form.scss';
 import React from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
 import { socialApi } from "../redux/extraReducers/socialApi";
@@ -19,7 +19,7 @@ export function ImageForm() {
                 setPreUrl(u.toString());
             }
             reader.readAsDataURL(mainFile);
-        }else{
+        } else {
             setPreUrl('');
         }
     }, [mainFile]);
@@ -30,7 +30,7 @@ export function ImageForm() {
         if (mainFile != null) {
             formdata.append('description', description);
             formdata.append('image', mainFile);
-            dispatch(socialApi.saveNewImage({token:userstate.token, formdata}));
+            dispatch(socialApi.saveNewImage({ token: userstate.token, formdata }));
             setMainFail(null);
             setDescription('');
         }
@@ -39,27 +39,28 @@ export function ImageForm() {
     return (
         <form className="image_form" onSubmit={submit}>
             <h2>Nueva imagen</h2>
-            <label htmlFor="descriptionimage">Descripcion</label>
-            <input
-                type="text"
+            <textarea
+                placeholder='Descripcion...'
                 id="descriptionimage"
                 value={description}
                 onChange={e => setDescription(e.target.value)}
+                className='textpadding'
             />
-            <label htmlFor="imagefile">Imagen</label>
-            <input
-                type="file"
-                id="imagefile"
-                accept="image/*"
-                onChange={e => {
-                    const f = e.target.files ? e.target.files[0] : null;
-                    if (f != null) {
-                        setMainFail(f);
-                    }
-                }}
-            />
-            {preUrl.trim() ? <img src={preUrl} alt="" /> : null}
-            {socialstate.message?<p>{socialstate.message}</p>:null}
+            <div className="input_image">
+                <input
+                    type="file"
+                    id="imagefile"
+                    accept="image/*"
+                    onChange={e => {
+                        const f = e.target.files ? e.target.files[0] : null;
+                        if (f != null) {
+                            setMainFail(f);
+                        }
+                    }}
+                />
+                {preUrl.trim() ? <img className='preview' src={preUrl} alt="" /> : null}
+            </div>
+            {socialstate.message ? <p>{socialstate.message}</p> : null}
             <button type='submit'>Publicar</button>
         </form>
     );
