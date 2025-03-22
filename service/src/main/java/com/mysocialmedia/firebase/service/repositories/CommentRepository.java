@@ -1,7 +1,6 @@
 package com.mysocialmedia.firebase.service.repositories;
 
 import com.mysocialmedia.firebase.service.models.entities.Comments;
-import com.mysocialmedia.firebase.service.models.entities.Imagenes;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

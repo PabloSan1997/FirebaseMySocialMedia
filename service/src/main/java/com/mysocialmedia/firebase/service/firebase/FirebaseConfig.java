@@ -6,6 +6,8 @@ import com.google.firebase.FirebaseOptions;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -19,11 +21,12 @@ public class FirebaseConfig {
 
     @PostConstruct
     public void init() throws IOException {
-        FileInputStream serviceAccount =
-                new FileInputStream("src/main/resources/ejemplos-keys.json");
+        Resource resource = new ClassPathResource("ejemplos-keys.json");
+//        FileInputStream serviceAccount =
+//                new FileInputStream("src/main/resources/ejemplos-keys.json");
 
         FirebaseOptions options = FirebaseOptions.builder()
-                .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                .setCredentials(GoogleCredentials.fromStream(resource.getInputStream()))
                 .setStorageBucket(bucketname)
                 .build();
         FirebaseApp.initializeApp(options);
