@@ -51,6 +51,7 @@ interface ViewFollowCount{
     followers:number;
 }
 
+
 //---------interaction interface
 
 interface OneImagenInterface{
@@ -114,4 +115,7 @@ interface SocialInitialState{
     images:ImagenInterface[];
     oneImage:OneImagenInterface;
     message:string;
+    userfollow:boolean;
+    followsCount:ViewFollowCount;
+    followHeaderUserInfo:UserHeader[]
 }

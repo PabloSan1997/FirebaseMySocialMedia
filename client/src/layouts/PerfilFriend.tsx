@@ -6,7 +6,9 @@ import { useAppDispatch, useAppSelector } from "../redux/hook";
 import { socialApi } from "../redux/extraReducers/socialApi";
 import { UserInfo } from "../components/UserInfo";
 import { ImageComponent } from "../components/ImageComponent";
-
+import { FollowCountCom } from "../components/FollowCountCom";
+import { FollowButton } from "../components/FollowButton";
+import '../styles/followbutton.scss';
 
 export function PerfilFriend() {
     const [search] = useSearchParams();
@@ -32,6 +34,8 @@ export function PerfilFriend() {
     return (
         <>
             <UserInfo {...socialstate.perfilUser} />
+            <FollowButton thename={username} className="follow_button"/>
+            <FollowCountCom thename={username}/>
             <div className="home">
                 {socialstate.images.map(p => <ImageComponent key={p.id} {...p} />)}
             </div>

@@ -3,7 +3,7 @@ import { generateSocialExtraReducer } from "../extraReducers/socialApi";
 
 
 const initialState: SocialInitialState = {
-    message:'',
+    message: '',
     perfilUser: {
         username: "",
         fullname: "",
@@ -26,7 +26,13 @@ const initialState: SocialInitialState = {
             urlImage: ""
         },
         createAt: ""
-    }
+    },
+    userfollow: false,
+    followsCount: {
+        followings: 0,
+        followers: 0
+    },
+    followHeaderUserInfo: []
 }
 
 const socialSlice = createSlice({

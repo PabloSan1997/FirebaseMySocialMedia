@@ -8,6 +8,7 @@ import { Perfil } from "./layouts/Perfil";
 import { OneImage } from "./layouts/OneImage";
 import { EditPerfil } from "./layouts/EditPerfil";
 import { PerfilFriend } from "./layouts/PerfilFriend";
+import { ListFollow } from "./layouts/ListFollow";
 
 function ViewDataToken() {
   const token = useAppSelector(state => state.user.token);
@@ -63,10 +64,10 @@ const Routes = () => useRoutes([
     )
   },
   {
-    path:routesName.editperfil,
-    element:(
+    path: routesName.editperfil,
+    element: (
       <ViewToken>
-        <EditPerfil/>
+        <EditPerfil />
       </ViewToken>
     )
   },
@@ -75,10 +76,18 @@ const Routes = () => useRoutes([
     element: <ViewDataToken />
   },
   {
-    path:routesName.perfilfriend,
-    element:(
+    path: routesName.perfilfriend,
+    element: (
       <ViewToken>
-        <PerfilFriend/>
+        <PerfilFriend />
+      </ViewToken>
+    )
+  },
+  {
+    path: routesName.followList,
+    element: (
+      <ViewToken>
+        <ListFollow />
       </ViewToken>
     )
   }

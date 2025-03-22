@@ -13,9 +13,10 @@
         border-radius: 100%;
         background: black;
         overflow: hidden;
-
+        display: flex;
         .my_image {
             max-width: 100%;
+            margin: auto;
         }
     }
 
@@ -26,4 +27,6 @@
             font-weight: 400;
         }
     }
+
+    
 }

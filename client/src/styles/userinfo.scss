@@ -1,0 +1,44 @@
+
+
+.userinfo{
+    display: flex;
+    flex-direction: column;
+    .border_image{
+        display: flex;
+        overflow: hidden;
+        border-radius: 100%;
+        width: 15rem;
+        height: 15rem;
+        cursor: pointer;
+        transition: 0.3s ease transform;
+        background: rgb(17, 1, 1);
+        &:hover{
+            transform: scale(1.1);
+        }
+        margin: auto;
+        img{
+            max-width: 100%;
+            max-height:100% ;
+            margin: auto;
+        }
+    }
+    .fullname{
+        margin:1rem auto 0;
+    }
+    .username{
+        margin: auto;
+    }
+    .description{
+        max-width: 50%;
+        margin:1rem auto 0;
+        text-align: center;
+    }
+    .area_dates{
+        display: flex;
+        width: fit-content;
+        margin:1rem auto 0;
+        span{
+            margin: auto 0.5rem;
+        }
+    }
+}

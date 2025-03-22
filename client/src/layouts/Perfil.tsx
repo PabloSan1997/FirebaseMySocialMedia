@@ -5,6 +5,7 @@ import { userApi } from "../redux/extraReducers/userApi";
 import { UserInfo } from "../components/UserInfo";
 import { socialApi } from "../redux/extraReducers/socialApi";
 import { ImageComponent } from "../components/ImageComponent";
+import { FollowCountCom } from "../components/FollowCountCom";
 
 
 export function Perfil() {
@@ -25,6 +26,7 @@ export function Perfil() {
   return (
     <>
       <UserInfo {...userstate.userInfo} />
+      {userstate.userInfo.username && <FollowCountCom thename={userstate.userHeader.username}/>}
       <div className="home">
         {socialstate.images.map(p => <ImageComponent key={p.id} {...p} />)}
       </div>

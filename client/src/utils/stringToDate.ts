@@ -1,7 +1,9 @@
 
 
 
-export function stringToDate(timesta:string):string{
+export function stringToDate(timesta: string, onlydate = false): string {
     const date = new Date(timesta);
-    return date.toLocaleString();
+    if (!onlydate)
+        return date.toLocaleString();
+    return date.toLocaleDateString();
 }

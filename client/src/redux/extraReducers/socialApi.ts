@@ -136,6 +136,63 @@ export const socialApi = {
                 throw await ft.json();
             return ft.json();
         }
+    ),
+    viewFollowFriend: createAsyncThunk(
+        'extraReducer/viewFollowFriend',
+        async ({token, friendname}:{token:string, friendname:string}):Promise<ViewFollow>=>{
+            const ft = await fetch(`${apiBase}/friend/viewfollow/${friendname}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            if (!ft.ok)
+                throw await ft.json();
+            return ft.json();
+        }
+    ),
+    viewCountFollow: createAsyncThunk(
+        'extraReducer/viewCountFollow',
+        async ({token, friendname}:{token:string, friendname:string}): Promise<ViewFollowCount> =>{
+            const ft = await fetch(`${apiBase}/friend/followsfriend/${friendname}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            if (!ft.ok)
+                throw await ft.json();
+            return ft.json();
+        }
+    ),
+    findFollowsUserHeader: createAsyncThunk(
+        'extraReducer/findFollowers',
+        async ({token, friendname, followers}:{token:string, friendname:string, followers:boolean}): Promise<UserHeader[]> =>{
+            const options:'followers'|'followings' = followers?'followers':'followings';
+            const ft = await fetch(`${apiBase}/friend/${options}/${friendname}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            if (!ft.ok)
+                throw await ft.json();
+            return ft.json();
+        }
+    ),
+    createFollow: createAsyncThunk(
+        'extraReducer/createFollow',
+        async ({friendname, token}:{friendname:string, token:string}):Promise<ViewFollowCount> =>{
+            const ft = await fetch(`${apiBase}/friend/${friendname}`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            if (!ft.ok)
+                throw await ft.json();
+            return ft.json();
+        }
     )
 }
 
@@ -184,5 +241,21 @@ export function generateSocialExtraReducer(builder: ActionReducerMapBuilder<Soci
         state.oneImage.userLike = action.payload.userLike;
         const countLikes = state.oneImage.likes;
         state.oneImage.likes = action.payload.userLike?countLikes+1:countLikes-1;
+    });
+
+    builder.addCase(socialApi.viewFollowFriend.fulfilled, (state, action)=>{
+        state.userfollow = action.payload.viewFollow;
+    });
+
+    builder.addCase(socialApi.viewCountFollow.fulfilled, (state, action)=>{
+        state.followsCount = action.payload;
+    });
+
+    builder.addCase(socialApi.findFollowsUserHeader.fulfilled, (state, action)=>{
+        state.followHeaderUserInfo = action.payload;
+    });
+
+    builder.addCase(socialApi.createFollow.fulfilled, (state, action)=>{
+        state.followsCount = action.payload;
     });
 }
