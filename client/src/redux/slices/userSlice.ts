@@ -18,7 +18,8 @@ const initialState:UserInitialState = {
         born: "",
         createCount: ""
     },
-    message: ""
+    message: "",
+    showProfileForm: false
 }
 
 const userSlice = createSlice({
@@ -27,6 +28,9 @@ const userSlice = createSlice({
     reducers:{
         writeMessage(state, action:PayloadAction<{message:string}>){
             state.message = action.payload.message;
+        },
+        setProdileForm(state, action:PayloadAction<{showProfileForm:boolean}>){
+            state.showProfileForm = action.payload.showProfileForm;
         }
     },
     extraReducers:generateUserExtraReducer

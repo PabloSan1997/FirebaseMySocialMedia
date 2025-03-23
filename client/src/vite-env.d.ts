@@ -108,6 +108,7 @@ interface UserInitialState{
     userHeader:UserHeader;
     userInfo:UserInfo;
     message:string;
+    showProfileForm:boolean;
 }
 
 interface SocialInitialState{

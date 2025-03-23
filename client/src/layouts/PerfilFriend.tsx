@@ -33,7 +33,7 @@ export function PerfilFriend() {
         return <Navigate to={routesName.home} />
     return (
         <>
-            <UserInfo {...socialstate.perfilUser} />
+            <UserInfo {...socialstate.perfilUser} perfil={false} />
             <FollowButton thename={username} className="follow_button"/>
             <FollowCountCom thename={username}/>
             <div className="home">

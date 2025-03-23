@@ -1,11 +1,24 @@
+import { PencilSquareIcon } from '@heroicons/react/24/solid';
 import '../styles/userinfo.scss';
 import { stringToDate } from '../utils/stringToDate';
+import { useAppDispatch } from '../redux/hook';
+import { userActions } from '../redux/slices/userSlice';
 
-export function UserInfo({ username, urlImage, fullname, born, createCount, description }: UserInfo) {
+interface UserinfoOptions extends UserInfo {
+    perfil: boolean;
+}
+export function UserInfo({ username, urlImage, fullname, born, createCount, description, perfil }: UserinfoOptions) {
+    const dispatch = useAppDispatch();
+    const openEditProfile = () => {
+        dispatch(userActions.setProdileForm({ showProfileForm: true }));
+    }
     return (
         <div className="userinfo">
-            <div className="border_image">
-                <img src={urlImage.trim()?urlImage:'h'} alt={username} />
+            <div className="area_info_profile">
+                {perfil && (<PencilSquareIcon className='edit_button_picture' onClick={openEditProfile} />)}
+                <div className="border_image">
+                    <img src={urlImage.trim() ? urlImage : 'h'} alt={username} />
+                </div>
             </div>
             <h2 className='fullname'>{fullname}</h2>
             <h3 className='username'>@{username}</h3>
