@@ -23,7 +23,14 @@
             padding: 0.5rem;
             box-sizing: border-box;
             display: flex;
-            flex-direction: column;   
+            flex-direction: column;  
+            position: relative;
+            input{
+                font-size: 1.2rem;
+            }
+            .showpassword{
+                width: 1.4rem;
+            } 
         }
     }
 }

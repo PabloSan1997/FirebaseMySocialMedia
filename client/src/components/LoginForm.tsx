@@ -4,6 +4,7 @@
 import React from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
 import { userApi } from "../redux/extraReducers/userApi";
+import { ShowPasswordBottom } from "./ShowPasswordBottom";
 
 export function LoginForm() {
   const userstate = useAppSelector(state => state.user);
@@ -31,7 +32,7 @@ export function LoginForm() {
         onChange={e => setData({ ...data, password: e.target.value })}
         value={data.password}
       />
-      <button type='button' onClick={() => setShow(view => !view)}>mostrar</button>
+      <ShowPasswordBottom onClick={()=> setShow( s => !s)} state={show} className='showpassword'/>
       <button type='submit'>Entrar</button>
       {userstate.message.trim()?<p>{userstate.message}</p>:null}
     </form>

@@ -5,6 +5,7 @@ import React from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
 import { userActions } from "../redux/slices/userSlice";
 import { userApi } from "../redux/extraReducers/userApi";
+import { ShowPasswordBottom } from "./ShowPasswordBottom";
 
 interface RegisterInputs extends RegisterDto{
     repeatpassword:string;
@@ -67,7 +68,7 @@ export function RegisterForm() {
                 value={inputRegister.repeatpassword}
                 onChange={e => setInputRegister({...inputRegister, repeatpassword:e.target.value})}
             />
-            <button type='button' onClick={() => setShow(view => !view)}>mostrar</button>
+            <ShowPasswordBottom onClick={()=> setShow( s => !s)} state={show} className='showpassword'/>
             <button type='submit'>Entrar</button>
             {userstate.message.trim() ? <p>{userstate.message}</p> : null}
         </form>
