@@ -16,3 +16,13 @@
         color: red;
     }
 }
+
+.button_image_menu{
+    width: 2rem;
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+    &:hover{
+        transform: scale(1.1);
+    }
+}

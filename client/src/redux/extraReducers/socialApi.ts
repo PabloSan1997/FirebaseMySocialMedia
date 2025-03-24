@@ -193,6 +193,34 @@ export const socialApi = {
                 throw await ft.json();
             return ft.json();
         }
+    ),
+    deleteImageById:createAsyncThunk(
+        'extraReducer/deleteImage',
+        async ({token, id}:{token:string, id:number}):Promise<{id:number}>=>{
+            const ft = await fetch(`${apiBase}/image/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            if (!ft.ok)
+                throw await ft.json();
+            return {id}
+        }
+    ),
+    deleteCommentById:createAsyncThunk(
+        'extraReducer/deleteComment',
+        async ({token, id}:{token:string, id:number}):Promise<{id:number}>=>{
+            const ft = await fetch(`${apiBase}/interaction/comment/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            if (!ft.ok)
+                throw await ft.json();
+            return {id}
+        }
     )
 }
 
@@ -257,5 +285,19 @@ export function generateSocialExtraReducer(builder: ActionReducerMapBuilder<Soci
 
     builder.addCase(socialApi.createFollow.fulfilled, (state, action)=>{
         state.followsCount = action.payload;
+    });
+
+    builder.addCase(socialApi.deleteImageById.fulfilled, (state, action)=>{
+        const index = state.images.findIndex(p => p.id == action.payload.id);
+        const clone = [...state.images];
+        clone.splice(index, 1);
+        state.images = clone;
+    });
+
+    builder.addCase(socialApi.deleteCommentById.fulfilled, (state, action)=>{
+        const comments = [...state.oneImage.comments];
+        const index = comments.findIndex(p => p.id == action.payload.id);
+        comments.splice(index, 1);
+        state.oneImage.comments = comments;
     });
 }

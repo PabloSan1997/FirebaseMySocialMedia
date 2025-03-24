@@ -1,0 +1,24 @@
+.menuimage{
+    position: absolute;
+    z-index: 8;
+    right: 2.5rem;
+    background: white;
+    border: 1px solid black;
+    border-radius: 0.4rem;
+    width: fit-content;
+    padding: 0.3rem;
+    display: grid;
+    gap:0.5rem;
+    grid-template-columns: repeat(1, 1fr);
+    button{
+        width: 10rem;
+        padding: 0.2rem;
+        background: none;
+        border: none;
+        border-bottom: 1px solid black;
+        cursor: pointer;
+        &:hover{
+            background: rgba(0, 0, 0, 0.13);
+        }
+    }
+}
