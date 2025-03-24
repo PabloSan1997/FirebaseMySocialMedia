@@ -10,6 +10,7 @@ import { UserTitle } from "../components/UserTitle";
 import '../styles/one_image.scss';
 import { HeartIcon } from '@heroicons/react/24/solid';
 import { stringToDate } from "../utils/stringToDate";
+import { SelectPage } from "../components/SelectPage";
 
 export function OneImage() {
     const [search] = useSearchParams();
@@ -23,10 +24,13 @@ export function OneImage() {
         dispatch(socialApi.generateOneImageLike({ token: userstate.token, idImage: Number(idImage) }));
     }
 
+    const searcpage = Number(search.get('page'));
+    const page = isNaN(searcpage) ? 0 : searcpage;
+
     React.useEffect(() => {
         if (!isNaN(Number(idImage)))
-            dispatch(socialApi.findOneImage({ token: userstate.token, idImage: Number(idImage), page: 0 }))
-    }, [idImage]);
+            dispatch(socialApi.findOneImage({ token: userstate.token, idImage: Number(idImage), page}))
+    }, [idImage, page]);
     if (isNaN(Number(idImage)))
         return <Navigate to={routesName.home} />
     return (
@@ -45,6 +49,7 @@ export function OneImage() {
             ) : null}
             <CommentForm token={userstate.token} idImage={Number(idImage)} />
             {socialstate.oneImage.comments.map(c => <Comment key={c.id} {...c} />)}
+            <SelectPage path={`${routesName.oneImage}?im=${idImage}&`}/>
         </div>
     );
 }

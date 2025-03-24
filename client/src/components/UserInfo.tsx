@@ -3,6 +3,8 @@ import '../styles/userinfo.scss';
 import { stringToDate } from '../utils/stringToDate';
 import { useAppDispatch } from '../redux/hook';
 import { userActions } from '../redux/slices/userSlice';
+import { ShowUserPerfil } from './ShowUserPerfil';
+import React from 'react';
 
 interface UserinfoOptions extends UserInfo {
     perfil: boolean;
@@ -12,13 +14,15 @@ export function UserInfo({ username, urlImage, fullname, born, createCount, desc
     const openEditProfile = () => {
         dispatch(userActions.setProdileForm({ showProfileForm: true }));
     }
-
+    const [showPerfilPicture, setShowPerfilPicture] = React.useState(false);
+    const onClose = () => { setShowPerfilPicture(false); }
     return (
         <div className="userinfo">
+            {showPerfilPicture && <ShowUserPerfil src={urlImage} alt={username} onClose={onClose} />}
             <div className="area_info_profile">
                 {perfil && (<PencilSquareIcon className='edit_button_picture' onClick={openEditProfile} />)}
                 <div className="border_image">
-                    <img src={urlImage.trim() ? urlImage : 'h'} alt={username} />
+                    {urlImage.trim() && <img src={urlImage} alt={username} onClick={() => setShowPerfilPicture(true)} />}
                 </div>
             </div>
             <h2 className='fullname'>{fullname}</h2>

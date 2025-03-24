@@ -6,7 +6,6 @@ import { useAppSelector } from "./redux/hook";
 import { JSX } from "react";
 import { Perfil } from "./layouts/Perfil";
 import { OneImage } from "./layouts/OneImage";
-import { EditPerfil } from "./layouts/EditPerfil";
 import { PerfilFriend } from "./layouts/PerfilFriend";
 import { ListFollow } from "./layouts/ListFollow";
 
@@ -60,14 +59,6 @@ const Routes = () => useRoutes([
     element: (
       <ViewToken>
         <OneImage />
-      </ViewToken>
-    )
-  },
-  {
-    path: routesName.editperfil,
-    element: (
-      <ViewToken>
-        <EditPerfil />
       </ViewToken>
     )
   },
