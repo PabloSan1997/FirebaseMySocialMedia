@@ -73,7 +73,7 @@ export const userApi = {
                         'Authorization':`Bearer ${token}`,
                         'Content-Type':'application/json'
                     },
-                    body:JSON.stringify(data)
+                    body:JSON.stringify({born: new Date(data.born), description:data.description})
                 });
                 if(!ft.ok)
                     throw await ft.json();
@@ -190,5 +190,16 @@ export function generateUserExtraReducer(builder:ActionReducerMapBuilder<UserIni
 
     builder.addCase(userApi.mainUserInfo.fulfilled, (state, aciton)=>{
         state.userInfo = aciton.payload;
+    });
+
+
+    builder.addCase(userApi.updateUserInfo.fulfilled, (state, action)=>{
+        state.userInfo = action.payload;
+        state.showProfileForm = false;
+    });
+
+    builder.addCase(userApi.updateUserPicture.fulfilled, (state, action)=>{
+        state.userInfo.urlImage = action.payload.urlImage;
+        state.showProfileForm = false;
     });
 }

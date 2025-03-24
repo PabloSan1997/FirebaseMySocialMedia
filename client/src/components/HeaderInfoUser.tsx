@@ -12,7 +12,7 @@ export function HeaderInfoUser() {
   const dispatch = useAppDispatch();
   React.useEffect(() => {
     dispatch(userApi.mainUserHeader({ token: userstate.token }));
-  }, []);
+  }, [userstate.userInfo.urlImage, userstate.userInfo.fullname]);
   return (
     <Link className="user_header" to={routesName.perfil}>
       {userstate.userHeader.urlImage.trim() && <img src={userstate.userHeader.urlImage} alt="imagen" />}

@@ -12,6 +12,7 @@ export function UserInfo({ username, urlImage, fullname, born, createCount, desc
     const openEditProfile = () => {
         dispatch(userActions.setProdileForm({ showProfileForm: true }));
     }
+
     return (
         <div className="userinfo">
             <div className="area_info_profile">
