@@ -33,8 +33,10 @@ public class ImageController {
     public ResponseEntity<?> findByIdImage(@PathVariable("idImage") Long id, Pageable pageable){
         return ResponseEntity.ok(imageService.findImageById(id, pageable));
     }
-
-
+    @GetMapping("/following")
+    public ResponseEntity<?> findByFollowings(Pageable pageable){
+        return ResponseEntity.ok(imageService.findFollowingsUserImages(pageable));
+    }
     @PostMapping
     public ResponseEntity<?> save(
             @RequestParam("description") String description,

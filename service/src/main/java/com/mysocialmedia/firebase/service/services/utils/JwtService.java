@@ -43,7 +43,7 @@ public class JwtService {
                 .claims(claims)
                 .subject(securityDto.getUsername())
                 .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis()+1000*60*60))
+                .expiration(new Date(System.currentTimeMillis()+1000*60*60*24))
                 .compact();
 
     }

@@ -4,12 +4,14 @@ import com.mysocialmedia.firebase.service.exceptions.MyBadRequestException;
 import com.mysocialmedia.firebase.service.exceptions.MyFileBadRequestException;
 import com.mysocialmedia.firebase.service.models.dtos.*;
 
+import com.mysocialmedia.firebase.service.models.entities.Follows;
 import com.mysocialmedia.firebase.service.models.entities.Imagenes;
 import com.mysocialmedia.firebase.service.models.entities.LikeEntity;
 import com.mysocialmedia.firebase.service.models.entities.Users;
 import com.mysocialmedia.firebase.service.repositories.*;
 import com.mysocialmedia.firebase.service.services.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -128,6 +131,18 @@ public class ImageServiceImp implements ImageService {
 
     }
 
+    @Override
+    @Transactional
+    public List<ShowImageDto> findFollowingsUserImages(Pageable pageable) {
+        Users user = getAuthenticationUser();
+        List<Imagenes> images = imagenRespository.findAllByFollows(user.getUsername(), pageable);
+        return images.stream().map(i -> {
+            int likes = likeRepository.countLikesImage(i.getId());
+            int comments = commentRepository.countCommentsById(i.getId());
+            return changeShowImageDto(i, i.getUser(), likes, comments);
+        }).toList();
+    }
+
     private Users getAuthenticationUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = (String) authentication.getPrincipal();
@@ -152,4 +167,5 @@ public class ImageServiceImp implements ImageService {
                 .userLike(opLike.isPresent())
                 .user(onlyTitleUserDto).build();
     }
+
 }

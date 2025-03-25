@@ -18,4 +18,7 @@ public interface ImagenRespository extends CrudRepository<Imagenes, Long> {
 
     @Query("select i from Imagenes i where i.user.username=?1 order by i.createAt desc")
     List<Imagenes> findAllByUsername(String username, Pageable pageable);
+
+    @Query("select i from Imagenes i join i.user.followers f where f.mainUser.username = ?1 order by i.createAt desc")
+    List<Imagenes> findAllByFollows(String username, Pageable pageable);
 }

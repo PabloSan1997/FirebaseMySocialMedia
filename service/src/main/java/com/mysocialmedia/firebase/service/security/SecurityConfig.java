@@ -102,7 +102,7 @@ public class SecurityConfig {
                         "/api/friend/followings/{username}",
                         "/api/friend/viewfollow/{username}",
                         "/api/image", "/api/image/{id}",
-                        "/api/image/user/{username}", "/api/image/user"
+                        "/api/image/user/{username}", "/api/image/user", "/api/image/following"
                 ).hasRole("USER")
                 .requestMatchers(
                         HttpMethod.DELETE,

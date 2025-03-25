@@ -14,4 +14,5 @@ public interface ImageService {
     ShowImageDto saveImage(String description, MultipartFile multipartFile);
     void deleteImageById(Long id);
     ShowOneImageDto findImageById(Long id, Pageable pageableComments);
+    List<ShowImageDto> findFollowingsUserImages(Pageable pageable);
 }
