@@ -1,6 +1,27 @@
+$withhome:95%;
+
 .home{
     display: flex;
     flex-direction: column;
     margin:1rem auto;
-    width: 95%;
+    width: $withhome;
+}
+.home_menu{
+    width: $withhome;
+    margin:1rem auto 0;
+    display: flex;
+    .option{
+        text-decoration: none;
+        color: black;
+        &:hover{
+            text-decoration: underline;
+        }
+        &.active{
+            color: red;
+            text-decoration: underline;
+        }
+        &:nth-child(2){
+            margin-left: 1rem;
+        }
+    }
 }

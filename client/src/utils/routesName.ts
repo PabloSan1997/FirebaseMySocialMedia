@@ -7,5 +7,6 @@ export const routesName = {
     oneImage:'/oneimage',
     editperfil:'/editperfil',
     perfilfriend:'/friend',
-    followList:'/followlist'
+    followList:'/followlist',
+    followsImage:'/followsimage'
 }

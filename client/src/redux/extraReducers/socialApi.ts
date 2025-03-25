@@ -95,6 +95,20 @@ export const socialApi = {
             return ft.json();
         }
     ),
+    findFollowinsImage:createAsyncThunk(
+        'extraReducer/findFollowingsUsers',
+        async ({ token, page }: { token: string, page: number }): Promise<ImagenInterface[]> => {
+            const ft = await fetch(`${apiBase}/image/following?size=${size}&page=${page}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                }
+            });
+            if (!ft.ok)
+                throw await ft.json();
+            return ft.json();
+        }
+    ),
     findFriendInfo: createAsyncThunk(
         'extraReducer/findFriendInformation',
         async ({ token, friendname }: { token: string, friendname: string }): Promise<UserInfo> => {
@@ -252,6 +266,10 @@ export function generateSocialExtraReducer(builder: ActionReducerMapBuilder<Soci
     });
 
     builder.addCase(socialApi.findFriendImages.fulfilled, (state, action) => {
+        state.images = action.payload;
+    });
+
+    builder.addCase(socialApi.findFollowinsImage.fulfilled, (state, action) => {
         state.images = action.payload;
     });
 

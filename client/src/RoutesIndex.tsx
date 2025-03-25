@@ -42,7 +42,15 @@ const Routes = () => useRoutes([
     path: routesName.home,
     element: (
       <ViewToken>
-        <Home />
+        <Home isHome={true}/>
+      </ViewToken>
+    )
+  },
+  {
+    path: routesName.followsImage,
+    element: (
+      <ViewToken>
+        <Home isHome={false}/>
       </ViewToken>
     )
   },
