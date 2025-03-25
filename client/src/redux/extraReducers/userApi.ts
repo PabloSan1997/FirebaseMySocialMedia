@@ -160,11 +160,17 @@ export function generateUserExtraReducer(builder:ActionReducerMapBuilder<UserIni
     builder.addCase(userApi.login.rejected, (state, action)=>{
         state.message = action.error.message as string;
     });
+    builder.addCase(userApi.login.pending, (state)=>{
+        state.message ='';
+    });
 
     builder.addCase(userApi.register.fulfilled, (state, action)=>{
         state.token = action.payload.token;
         state.message = '';
         loginStorage.save(action.payload.token);
+    });
+    builder.addCase(userApi.register.pending, (state)=>{
+        state.message = '';
     });
     builder.addCase(userApi.register.rejected, (state, action)=>{
         state.message = action.error.message as string;
