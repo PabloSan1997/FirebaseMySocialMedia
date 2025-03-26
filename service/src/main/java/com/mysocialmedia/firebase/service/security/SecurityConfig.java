@@ -114,6 +114,10 @@ public class SecurityConfig {
                         "/api/user/login",
                         "/api/user/register"
                 ).permitAll()
+                .requestMatchers(
+                        HttpMethod.GET,
+                        "/", "index.html", "logo.svg", "/assets", "/assets/**"
+                ).permitAll()
                 .anyRequest().authenticated();
     }
 }
