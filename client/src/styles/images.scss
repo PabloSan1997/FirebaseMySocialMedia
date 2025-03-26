@@ -1,4 +1,4 @@
-@import 'colors.scss';
+@use 'colors.scss' as *;
 
 
 $mygreen:rgb(209, 231, 209);
@@ -45,16 +45,14 @@ $mygreen:rgb(209, 231, 209);
 
             span {
                 font-size: 1.5rem;
-                color: $malachite-950;
+                color: $malachite-900;
             }
-
             .icon {
                 width: 1.5rem;
                 margin-right: 0.2rem;
-                color: $malachite-950;
                 cursor: pointer;
-                &.active{
-                    color: red;
+                &.icon-comment{
+                    color: $malachite-900;
                 }
                 &:hover{
                     transform: scale(1.1);

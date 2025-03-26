@@ -33,7 +33,10 @@ export function ImageComponent({ urlImage, user, id, description, comments, like
           <span>{likes}</span>
         </div>
         <div className="icon_area">
-          <ChatBubbleBottomCenterTextIcon className='icon' onClick={() => navigate(`${routesName.oneImage}?im=${id}`)}/>
+          <ChatBubbleBottomCenterTextIcon 
+          className='icon icon-comment' 
+          onClick={() => navigate(`${routesName.oneImage}?im=${id}`)}
+          />
           <span>{comments}</span>
         </div>
       </div>
