@@ -81,7 +81,7 @@ export function EdtiProfileForms() {
                             onChange={e => setUserinfo({ ...saveuserinfo, born: e.target.value })}
                             value={saveuserinfo.born}
                         />
-                        <button>Acutalizar</button>
+                        <button className='botton_forms'>Acutalizar</button>
                     </form>
                     <form className='forms' onSubmit={updateUserImage}>
                         <h3>Nueva foto de perfil</h3>
@@ -91,7 +91,7 @@ export function EdtiProfileForms() {
                             className='entrada file'
                             onChange={addFile} />
                         {preUrl && (<img className='preurl' src={preUrl} />)}
-                        <button>Acutalizar</button>
+                        <button className='botton_forms'>Acutalizar</button>
                     </form>
                 </div>
             </div>

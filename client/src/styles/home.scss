@@ -1,23 +1,29 @@
+@import 'colors.scss';
+
 $withhome:95%;
+
 
 .home{
     display: flex;
     flex-direction: column;
-    margin:1rem auto;
+    margin:1.5rem auto;
     width: $withhome;
 }
 .home_menu{
     width: $withhome;
-    margin:1rem auto 0;
+    padding: 1rem 0;
+    margin:1.3rem auto 0;
     display: flex;
+    border-bottom: 1px solid $malachite-950;
+    border-top: 1px solid $malachite-950;
     .option{
         text-decoration: none;
-        color: black;
+        color: $malachite-900;
         &:hover{
             text-decoration: underline;
         }
         &.active{
-            color: red;
+            color: $malachite-950;
             text-decoration: underline;
         }
         &:nth-child(2){

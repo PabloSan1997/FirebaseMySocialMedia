@@ -21,7 +21,7 @@ export function CommentForm({ idImage, token }: { idImage: number, token: string
                 value={comment}
                 onChange={e => setComment(e.target.value)}
             />
-            <button type='submit'>Comentar</button>
+            <button type='submit' className='botton_forms'>Comentar</button>
         </form>
     );
 }

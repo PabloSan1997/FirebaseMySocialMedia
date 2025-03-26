@@ -1,4 +1,4 @@
-
+@import 'colors.scss';
 
 .area_login{
     width: 50%;
@@ -9,27 +9,66 @@
     .area_buttons{
         margin-top: 1rem;
         display: flex;
+        height: 2rem;
         justify-content: center;
         button{
-            margin: 0 0.2rem;
+            margin: 0 1.5rem;
+            padding: 0.2rem 1rem;
+            border: none;
+            font-size: 1.2rem;
+            background: none;
+            color: $malachite-950;
+            cursor: pointer;
+            font-weight: bold;
+            &:hover{
+                border-bottom: $malachite-950 solid 2px;
+            }
         }
     }
     .forms_data{
         display: flex;
         width: 200%;
+        box-shadow: 0 0 5px blac;
         transition: margin-left 0.3s ease;
+        h2{
+            color: $malachite-950;
+            margin:0 auto 0.2rem;
+        }
         form{
+            border-radius: 0.3rem;
+            margin-top: 1rem;
+            border: 2px solid $malachite-900;
+            background:$malachite-300;
             width: 100%;
             padding: 0.5rem;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;  
             position: relative;
+            .botton_forms{
+                margin:1rem auto 0;
+                font-size: 1.1rem;
+            }
+            label{
+                color: $malachite-950;
+                margin-bottom: 0.2rem;
+            }
             input{
                 font-size: 1.2rem;
+                margin-bottom: rem;
+                padding: 0.2rem;
+                box-sizing: border-box;
+                margin-bottom: 0.8rem;
+                outline: none;
+                border: none;
+                color: $malachite-950;
+                border-radius: 0.2rem;
+                background: $malachite-50;
             }
             .showpassword{
                 width: 1.4rem;
+                color: $malachite-950;
+                cursor: pointer;
             } 
         }
     }

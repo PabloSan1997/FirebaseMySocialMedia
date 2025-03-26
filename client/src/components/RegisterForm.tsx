@@ -69,7 +69,7 @@ export function RegisterForm() {
                 onChange={e => setInputRegister({...inputRegister, repeatpassword:e.target.value})}
             />
             <ShowPasswordBottom onClick={()=> setShow( s => !s)} state={show} className='showpassword'/>
-            <button type='submit'>Entrar</button>
+            <button type='submit' className="botton_forms">Entrar</button>
             {userstate.message.trim() ? <p>{userstate.message}</p> : null}
         </form>
     );

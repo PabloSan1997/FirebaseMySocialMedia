@@ -33,7 +33,7 @@ export function LoginForm() {
         value={data.password}
       />
       <ShowPasswordBottom onClick={()=> setShow( s => !s)} state={show} className='showpassword'/>
-      <button type='submit'>Entrar</button>
+      <button type='submit' className="botton_forms">Entrar</button>
       {userstate.message.trim()?<p>{userstate.message}</p>:null}
     </form>
   );

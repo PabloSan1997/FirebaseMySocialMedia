@@ -1,3 +1,8 @@
+@import 'colors.scss';
+
+
+$mygreen:rgb(209, 231, 209);
+
 .area_image {
     width: 100%;
     display: flex;
@@ -15,7 +20,7 @@
     .border_image_full {
         width: 100%;
         height: 25rem;
-        background: rgb(243, 243, 243);
+        background: $mygreen;
         display: flex;
         img {
             margin: auto;
@@ -31,7 +36,7 @@
 
     .count_image {
         display: flex;
-        background: rgb(243, 243, 243);
+        background: $mygreen;
         padding: 0.5rem 0;
 
         .icon_area {
@@ -40,11 +45,20 @@
 
             span {
                 font-size: 1.5rem;
+                color: $malachite-950;
             }
 
             .icon {
                 width: 1.5rem;
                 margin-right: 0.2rem;
+                color: $malachite-950;
+                cursor: pointer;
+                &.active{
+                    color: red;
+                }
+                &:hover{
+                    transform: scale(1.1);
+                }
             }
         }
     }

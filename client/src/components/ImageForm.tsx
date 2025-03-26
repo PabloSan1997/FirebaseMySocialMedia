@@ -47,6 +47,7 @@ export function ImageForm() {
                 className='textpadding'
             />
             <div className="input_image">
+                <label htmlFor="imagefile" className='botton_forms label'>Agregar imagen</label>
                 <input
                     type="file"
                     id="imagefile"
@@ -59,9 +60,10 @@ export function ImageForm() {
                     }}
                 />
                 {preUrl.trim() ? <img className='preview' src={preUrl} alt="" /> : null}
+                <button type='submit' className='botton_forms'>Publicar</button>
             </div>
             {socialstate.message ? <p>{socialstate.message}</p> : null}
-            <button type='submit'>Publicar</button>
+            
         </form>
     );
 }
