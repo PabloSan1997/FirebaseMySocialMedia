@@ -1,20 +1,27 @@
+@use 'colors.scss' as *;
+
 .userinfo {
     display: flex;
     flex-direction: column;
     margin-top: 2rem;
+
     .area_info_profile {
         position: relative;
         width: fit-content;
         margin: auto;
-        .edit_button_picture{
+
+        .edit_button_picture {
             width: 1.5rem;
             position: absolute;
-            right:0 ;
+            color: $malachite-900;
+            right: 0;
             cursor: pointer;
-            &:hover{
+
+            &:hover {
                 transform: scale(1.2);
             }
         }
+
         .border_image {
             display: flex;
             overflow: hidden;
@@ -41,10 +48,12 @@
 
     .fullname {
         margin: 1rem auto 0;
+        color: $malachite-950;
     }
 
     .username {
         margin: auto;
+        color: $malachite-900;
     }
 
     .description {
@@ -60,6 +69,7 @@
 
         span {
             margin: auto 0.5rem;
+            color: $malachite-950;
         }
     }
 }

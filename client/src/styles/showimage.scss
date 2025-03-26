@@ -1,4 +1,4 @@
-
+@use 'colors.scss' as *;
 
 
 .show_user_perfil{
@@ -7,7 +7,7 @@
     z-index: 10;
     display: flex;
     top:0;
-    background: rgba(0, 0, 0, 0.308);
+    background: rgba(0, 0, 0, 0.678);
     .boton_cerrar{
         width: 2rem;
         position: absolute;
@@ -15,6 +15,10 @@
         top:5rem;
         cursor: pointer;
         transform: scale(1.1);
+        color: $malachite-100;
+        &:hover{
+            color: $malachite-50;
+        }
     }
     img{
         margin: auto;

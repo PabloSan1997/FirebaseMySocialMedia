@@ -1,12 +1,25 @@
+@use 'colors.scss' as *;
+
 .comment_form{
     display: flex;
     flex-direction: column;
     margin-top:1rem;
     label{
         margin-bottom: 0.4rem;
+        color: $malachite-950;
+        font-weight: bold;
     }
     textarea{
+        height: 5rem;
         resize: none;
+        outline: none;
+        border: 1px solid $malachite-800;
+        border-radius: 0.4em;
+        font-size: 1rem;
+        background:$malachite-50;
+        &::placeholder{
+            color: $malachite-800;
+        }
     }
     button{
         margin:0.5rem auto auto 0;

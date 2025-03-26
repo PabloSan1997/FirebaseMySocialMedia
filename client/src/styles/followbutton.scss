@@ -1,7 +1,13 @@
-
+@use 'colors.scss' as *;
 
 .follow_button{
+    &.active{
+        background: $malachite-950;
+        color: $malachite-100;
+        &:hover{
+            background: $malachite-800;
+        }
+    }
     margin:  0.8rem auto;
     display: flex;
-
 }

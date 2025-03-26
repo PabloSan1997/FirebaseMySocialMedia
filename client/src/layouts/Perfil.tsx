@@ -7,6 +7,7 @@ import { socialApi } from "../redux/extraReducers/socialApi";
 import { ImageComponent } from "../components/ImageComponent";
 import { FollowCountCom } from "../components/FollowCountCom";
 import { EdtiProfileForms } from "../components/EdtiProfileForms";
+import { ImageForm } from "../components/ImageForm";
 
 export function Perfil() {
   const userstate = useAppSelector(state => state.user);
@@ -28,6 +29,7 @@ export function Perfil() {
       <EdtiProfileForms/>
       <UserInfo {...userstate.userInfo} perfil={true} />
       {userstate.userInfo.username && <FollowCountCom thename={userstate.userHeader.username} />}
+      <ImageForm/>
       <div className="home">
         {socialstate.images.map(p => <ImageComponent key={p.id} {...p} />)}
       </div>

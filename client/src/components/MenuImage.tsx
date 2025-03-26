@@ -5,10 +5,12 @@ import '../styles/menuimage.scss';
 export function MenuImage({ id, token, options }: { id: number, token: string, options: 'image' | 'comment' }) {
     const dispatch = useAppDispatch();
     const deleteData = () => {
-        if (options === 'image')
-            dispatch(socialApi.deleteImageById({ token, id }));
-        else
-            dispatch(socialApi.deleteCommentById({ token, id }));
+        if (confirm('Desea eliminar '+ options)) {
+            if (options === 'image')
+                dispatch(socialApi.deleteImageById({ token, id }));
+            else
+                dispatch(socialApi.deleteCommentById({ token, id }));
+        }
     }
     return (
         <div className="menuimage">

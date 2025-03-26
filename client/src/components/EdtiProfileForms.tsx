@@ -32,6 +32,10 @@ export function EdtiProfileForms() {
         }
     }, [imageFile]);
 
+    React.useEffect(()=>{
+        if(userstate.userHeader.urlImage)
+            setPreUrl(userstate.userHeader.urlImage);
+    }, [userstate.userHeader.urlImage]);
 
     React.useEffect(() => {
         if (userstate.userInfo.born.trim())
@@ -85,10 +89,12 @@ export function EdtiProfileForms() {
                     </form>
                     <form className='forms' onSubmit={updateUserImage}>
                         <h3>Nueva foto de perfil</h3>
+                        <label htmlFor="ubdateperfilpicture" className='file_label_profile botton_forms '>Cambiar Foto de perfil</label>
                         <input
                             type="file"
                             accept='image/*'
                             className='entrada file'
+                            id="ubdateperfilpicture"
                             onChange={addFile} />
                         {preUrl && (<img className='preurl' src={preUrl} />)}
                         <button className='botton_forms'>Acutalizar</button>

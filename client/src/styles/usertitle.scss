@@ -1,7 +1,9 @@
+@use 'colors.scss' as *;
+
+
 .title_user {
     display: flex;
     cursor: pointer;
-
     &:hover .border_image, &:hover .area_info{
         transform: scale(1.1);
     }
@@ -23,10 +25,20 @@
     .area_info {
         margin-left: 0.5rem;
         transition: transform 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        h3{
+            color: $malachite-950;
+        }
         h4 {
             font-weight: 400;
+            color: $malachite-900;
         }
+        
+    .createAt{
+        color: $malachite-800;
+        font-size: .8rem;
+        margin-top: 0.3rem;
     }
-
-    
+    }
 }

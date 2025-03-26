@@ -34,7 +34,7 @@ export function PerfilFriend() {
     return (
         <>
             <UserInfo {...socialstate.perfilUser} perfil={false} />
-            <FollowButton thename={username} className="follow_button"/>
+            <FollowButton thename={username} className={`follow_button botton_forms ${socialstate.userfollow?'active':''}`}/>
             <FollowCountCom thename={username}/>
             <div className="home">
                 {socialstate.images.map(p => <ImageComponent key={p.id} {...p} />)}

@@ -1,9 +1,11 @@
+@use 'colors.scss' as *;
+
 .menuimage{
     position: absolute;
     z-index: 8;
     right: 2.5rem;
-    background: white;
-    border: 1px solid black;
+    background: $malachite-50;
+    border: 1px solid $malachite-900;
     border-radius: 0.4rem;
     width: fit-content;
     padding: 0.3rem;
@@ -12,13 +14,15 @@
     grid-template-columns: repeat(1, 1fr);
     button{
         width: 10rem;
+        border-radius: 0.2rem;
         padding: 0.2rem;
         background: none;
         border: none;
-        border-bottom: 1px solid black;
+        border-bottom: 1px solid $malachite-900;
         cursor: pointer;
+        color: $malachite-950;
         &:hover{
-            background: rgba(0, 0, 0, 0.13);
+            background: $malachite-900-05;
         }
     }
 }

@@ -5,7 +5,6 @@ import { UserTitle } from "./UserTitle";
 import { Bars3Icon, ChatBubbleBottomCenterTextIcon, HeartIcon } from '@heroicons/react/24/solid';
 import { useAppDispatch, useAppSelector } from '../redux/hook';
 import { socialApi } from '../redux/extraReducers/socialApi';
-import { stringToDate } from '../utils/stringToDate';
 import { MenuImage } from './MenuImage';
 import React from 'react';
 
@@ -19,11 +18,10 @@ export function ImageComponent({ urlImage, user, id, description, comments, like
   const generateLike = () => dispatch(socialApi.generateLike({ token: userstate.token, idImage: id }));
   return (
     <div className="area_image">
-      {isFromUser && <Bars3Icon className='button_image_menu' onClick={()=> setShowMenu(t => !t)}/>}
-      {isFromUser && showMenu && <MenuImage token={userstate.token} id={id} options='image'/>}
-      <UserTitle {...user} />
+      {isFromUser && <Bars3Icon className='button_image_menu' onClick={() => setShowMenu(t => !t)} />}
+      {isFromUser && showMenu && <MenuImage token={userstate.token} id={id} options='image' />}
+      <UserTitle {...user} createAt={createAt} />
       <p className="description">{description}</p>
-      <span className='date'>{stringToDate(createAt)}</span>
       <div className="border_image_full">
         <img src={urlImage} alt={user.username} onClick={() => navigate(`${routesName.oneImage}?im=${id}`)} />
       </div>
@@ -33,9 +31,9 @@ export function ImageComponent({ urlImage, user, id, description, comments, like
           <span>{likes}</span>
         </div>
         <div className="icon_area">
-          <ChatBubbleBottomCenterTextIcon 
-          className='icon icon-comment' 
-          onClick={() => navigate(`${routesName.oneImage}?im=${id}`)}
+          <ChatBubbleBottomCenterTextIcon
+            className='icon icon-comment'
+            onClick={() => navigate(`${routesName.oneImage}?im=${id}`)}
           />
           <span>{comments}</span>
         </div>

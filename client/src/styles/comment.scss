@@ -1,12 +1,15 @@
-
+@use 'colors.scss' as *;
 
 .comments{
     padding:0.3rem 0.5rem;
     box-sizing: border-box;
     margin: 0.3rem 0;
     width: 100%;
-    background: rgb(179, 179, 179);
-    position: relative;
+    background: $malachite-100;
+    .area_info_comment{
+        position: relative;
+        width: 100%;
+    }
     p{
         font-size: 1.2rem;
         margin: 0.5rem auto 0 1rem;

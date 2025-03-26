@@ -2,9 +2,12 @@
 import { useNavigate } from "react-router-dom";
 import { routesName } from "../utils/routesName";
 import '../styles/usertitle.scss';
+import { stringToDate } from "../utils/stringToDate";
 
-
-export function UserTitle({ username, fullname, urlImage }: UserHeader) {
+interface UserTitleDate extends UserHeader{
+  createAt:string;
+}
+export function UserTitle({ username, fullname, urlImage, createAt}: UserTitleDate) {
   const navigate = useNavigate();
 
   return (
@@ -15,6 +18,7 @@ export function UserTitle({ username, fullname, urlImage }: UserHeader) {
       <div className="area_info">
         <h3>{fullname}</h3>
         <h4>@{username}</h4>
+        <span className="createAt">{stringToDate(createAt)}</span>
       </div>
     </div>
   );

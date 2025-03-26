@@ -1,10 +1,16 @@
+@use 'colors.scss' as *;
 
 .area_follow_count{
     width: fit-content;
     display: flex;
     margin:0.8rem auto 0;
     .follow{
-        color: black;
+        color: $malachite-950;
+        font-weight: bold;
         margin: auto 0.4rem;
+        transition: transform 0.3s ease;
+        &:hover{
+            transform: scale(1.1);
+        }
     }
 }

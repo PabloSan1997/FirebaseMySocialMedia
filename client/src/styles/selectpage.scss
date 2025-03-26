@@ -1,3 +1,4 @@
+@use 'colors.scss' as *;
 
 .move_select{
     width: fit-content;
@@ -5,9 +6,17 @@
     span{
         margin: auto 0.5rem;
         font-size: 1.5rem;
+        color: $malachite-950;
     }
     a{
+        background: $malachite-900;
+        padding:0 0.3rem;
         font-size: 1.2rem;
+        color: $malachite-50;
+        border-radius: 0.3rem;
+        &:hover{
+            background: $malachite-700;
+        }
         text-decoration: none;
         &#nextpage{
             margin: auto auto auto 0 ;

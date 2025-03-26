@@ -1,5 +1,6 @@
 import { ActionReducerMapBuilder, createAsyncThunk } from "@reduxjs/toolkit";
 import { apiBase, size } from "./properties";
+import { routesName } from "../../utils/routesName";
 
 
 
@@ -261,6 +262,10 @@ export function generateSocialExtraReducer(builder: ActionReducerMapBuilder<Soci
         state.oneImage = action.payload;
     });
 
+    builder.addCase(socialApi.findOneImage.rejected, () => {
+        window.location.href = `/#${routesName.home}`;
+    });
+
     builder.addCase(socialApi.addComment.fulfilled, (state, action) => {
         state.oneImage.comments = [action.payload, ...state.oneImage.comments];
     });
@@ -310,6 +315,7 @@ export function generateSocialExtraReducer(builder: ActionReducerMapBuilder<Soci
         const clone = [...state.images];
         clone.splice(index, 1);
         state.images = clone;
+        state.oneImage = {...state.oneImage, id:0}
     });
 
     builder.addCase(socialApi.deleteCommentById.fulfilled, (state, action)=>{

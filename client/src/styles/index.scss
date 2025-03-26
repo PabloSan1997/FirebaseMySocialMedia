@@ -6,6 +6,9 @@
     font-family: arial;
 }
 
+p{
+    color: $malachite-950;
+}
 
 .textpadding{
     padding: 0.3rem;
@@ -39,6 +42,7 @@
     position: absolute;
     right: 0;
     cursor: pointer;
+    color: $malachite-950;
     &:hover{
         transform: scale(1.1);
     }
