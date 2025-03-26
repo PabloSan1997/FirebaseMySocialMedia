@@ -18,7 +18,7 @@ export function UserTitle({ username, fullname, urlImage, createAt}: UserTitleDa
       <div className="area_info">
         <h3>{fullname}</h3>
         <h4>@{username}</h4>
-        <span className="createAt">{stringToDate(createAt)}</span>
+       {createAt.trim() && <span className="createAt">{stringToDate(createAt)}</span>}
       </div>
     </div>
   );
