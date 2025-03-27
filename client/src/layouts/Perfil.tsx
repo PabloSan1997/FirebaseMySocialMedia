@@ -26,13 +26,15 @@ export function Perfil() {
 
   return (
     <>
-      <EdtiProfileForms/>
+      <EdtiProfileForms />
       <UserInfo {...userstate.userInfo} perfil={true} />
       {userstate.userInfo.username && <FollowCountCom thename={userstate.userHeader.username} />}
-      <ImageForm/>
-      <div className="home">
-        {socialstate.images.map(p => <ImageComponent key={p.id} {...p} />)}
-      </div>
+      <ImageForm />
+      {!socialstate.loading ? (
+        <div className="home">
+          {socialstate.images.map(p => <ImageComponent key={p.id} {...p} />)}
+        </div>
+      ) : <div className="loading"></div>}
     </>
   );
 }

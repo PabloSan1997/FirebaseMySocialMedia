@@ -118,5 +118,6 @@ interface SocialInitialState{
     message:string;
     userfollow:boolean;
     followsCount:ViewFollowCount;
-    followHeaderUserInfo:UserHeader[]
+    followHeaderUserInfo:UserHeader[];
+    loading:boolean;
 }

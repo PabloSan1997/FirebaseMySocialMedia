@@ -25,17 +25,22 @@ export default function Home({ isHome }: { isHome: boolean }) {
     else
       dispatch(socialApi.findFollowinsImage({ token: userstate.token, page }));
   }, [page, isHome]);
+
+
+
   return (
     <>
       <ImageForm />
       <nav className="home_menu">
-        <NavLink to={routesName.home} className={({isActive})=> isActive?'option active':'option'}>Home</NavLink>
-        <NavLink to={routesName.followsImage} className={({isActive})=> isActive?'option active':'option'}>Siguiendo</NavLink>
+        <NavLink to={routesName.home} className={({ isActive }) => isActive ? 'option active' : 'option'}>Home</NavLink>
+        <NavLink to={routesName.followsImage} className={({ isActive }) => isActive ? 'option active' : 'option'}>Siguiendo</NavLink>
       </nav>
-      <div className="home">
-        {socialstate.images.map(p => <ImageComponent key={p.id} {...p} />)}
-      </div>
-      <SelectPage path={`${isHome?routesName.home:routesName.followsImage}?`} />
+      {!socialstate.loading ? (
+        <div className="home">
+          {socialstate.images.map(p => <ImageComponent key={p.id} {...p} />)}
+        </div>
+      ) : <div className="loading"></div>}
+      <SelectPage path={`${isHome ? routesName.home : routesName.followsImage}?`} />
     </>
   );
 }

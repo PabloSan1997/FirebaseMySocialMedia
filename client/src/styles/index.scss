@@ -47,3 +47,26 @@ p{
         transform: scale(1.1);
     }
 }
+
+
+.loading{
+    width: 10rem;
+    height: 10rem;
+    margin:0.8rem auto;
+    animation: loading-animation 1.3s linear infinite;
+    border-radius: 100%;
+    border: 7px solid $malachite-300;
+    border-top-color: $malachite-800;
+}
+
+@keyframes loading-animation {
+    0%{
+        transform: rotate(0deg) scale(1);
+    }
+    50%{
+        transform: rotate(180deg) scale(.5);
+    }
+    100%{
+        transform: rotate(360deg) scale(1);
+    }
+}

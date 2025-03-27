@@ -242,40 +242,74 @@ export const socialApi = {
 
 
 export function generateSocialExtraReducer(builder: ActionReducerMapBuilder<SocialInitialState>) {
+    //Find All images
     builder.addCase(socialApi.findAll.fulfilled, (state, action) => {
         state.images = action.payload;
         state.message = '';
+        state.loading = false;
+    });
+    builder.addCase(socialApi.findAll.pending, (state) => {
+        state.loading = true;
     });
     builder.addCase(socialApi.findAll.rejected, (state) => {
         state.images = [];
+        state.loading = false;
     });
 
+    //Save images
     builder.addCase(socialApi.saveNewImage.fulfilled, (state, action) => {
         state.images = [action.payload, ...state.images];
+        state.loading = false;
+    });
+    builder.addCase(socialApi.saveNewImage.pending, (state)=>{
+        state.loading = true;
     });
     builder.addCase(socialApi.saveNewImage.rejected, (state, action) => {
         const message = action.error.message;
         state.message = message ? message : 'Error al enviar publicacion';
+        state.loading = false;
     });
 
+    //Find One image
     builder.addCase(socialApi.findOneImage.fulfilled, (state, action) => {
         state.oneImage = action.payload;
+        state.loading = false;
     });
-
-    builder.addCase(socialApi.findOneImage.rejected, () => {
+    builder.addCase(socialApi.findOneImage.pending, (state) => {
+        state.loading = true;
+    });
+    builder.addCase(socialApi.findOneImage.rejected, (state) => {
+        state.loading = false;
         window.location.href = `/#${routesName.home}`;
     });
 
+    //Add Comment
     builder.addCase(socialApi.addComment.fulfilled, (state, action) => {
         state.oneImage.comments = [action.payload, ...state.oneImage.comments];
     });
 
+    //Find Images friend xd
     builder.addCase(socialApi.findFriendImages.fulfilled, (state, action) => {
         state.images = action.payload;
+        state.loading = false;
+    });
+    builder.addCase(socialApi.findFriendImages.pending, (state) => {
+        state.loading = true;
+    });
+    builder.addCase(socialApi.findFriendImages.rejected, (state) => {
+        state.loading = false;
     });
 
+    //find following image
     builder.addCase(socialApi.findFollowinsImage.fulfilled, (state, action) => {
         state.images = action.payload;
+        state.loading = false;
+    });
+    builder.addCase(socialApi.findFollowinsImage.pending, (state) => {
+        state.loading = true;
+    });
+    builder.addCase(socialApi.findFollowinsImage.rejected, (state) => {
+        state.loading = false;
     });
 
     builder.addCase(socialApi.findFriendInfo.fulfilled, (state, action) => {
@@ -302,8 +336,16 @@ export function generateSocialExtraReducer(builder: ActionReducerMapBuilder<Soci
         state.followsCount = action.payload;
     });
 
+    //Find user info follows
     builder.addCase(socialApi.findFollowsUserHeader.fulfilled, (state, action)=>{
         state.followHeaderUserInfo = action.payload;
+        state.loading = false;
+    });
+    builder.addCase(socialApi.findFollowsUserHeader.pending, (state)=>{
+        state.loading = true;
+    });
+    builder.addCase(socialApi.findFollowsUserHeader.rejected, (state)=>{
+        state.loading = false;
     });
 
     builder.addCase(socialApi.createFollow.fulfilled, (state, action)=>{

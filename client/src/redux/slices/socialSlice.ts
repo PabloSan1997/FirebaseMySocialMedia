@@ -32,7 +32,8 @@ const initialState: SocialInitialState = {
         followings: 0,
         followers: 0
     },
-    followHeaderUserInfo: []
+    followHeaderUserInfo: [],
+    loading:false
 }
 
 const socialSlice = createSlice({

@@ -34,11 +34,13 @@ export function PerfilFriend() {
     return (
         <>
             <UserInfo {...socialstate.perfilUser} perfil={false} />
-            <FollowButton thename={username} className={`follow_button botton_forms ${socialstate.userfollow?'active':''}`}/>
-            <FollowCountCom thename={username}/>
-            <div className="home">
-                {socialstate.images.map(p => <ImageComponent key={p.id} {...p} />)}
-            </div>
+            <FollowButton thename={username} className={`follow_button botton_forms ${socialstate.userfollow ? 'active' : ''}`} />
+            <FollowCountCom thename={username} />
+            {!socialstate.loading ? (
+                <div className="home">
+                    {socialstate.images.map(p => <ImageComponent key={p.id} {...p} />)}
+                </div>
+            ) : <div className="loading"></div>}
         </>
     );
 }

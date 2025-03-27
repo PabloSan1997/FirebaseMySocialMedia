@@ -25,6 +25,9 @@ export function ListFollow() {
       }));
   }, [name, typefollow]);
 
+  if(socialstate.loading)
+    return <div className="loading"></div>
+
   return (
     <>
     <h2 className="follow_title">{convertUpperTitle(typefollow as string)}</h2>

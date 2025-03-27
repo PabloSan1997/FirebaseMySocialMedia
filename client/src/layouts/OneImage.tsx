@@ -37,6 +37,10 @@ export function OneImage() {
 
     if (isNaN(Number(idImage)))
         return <Navigate to={routesName.home} />
+
+    if(socialstate.loading)
+        return <div className="loading"></div>
+        
     return (
         <div className="one_image">
             <div className="area_image">
