@@ -1,0 +1,17 @@
+
+services:
+
+  firebasesocialmedia:
+    build: .
+    restart: always
+    ports:
+      - 3008:3008
+    env_file: ./.env
+    environment:
+      - PORT=$PORT_ENV
+      - URL_DB=$URL_DB_ENV
+      - USERNAME=$USERNAME_ENV
+      - PASSWORD=$PASSWORD_ENV
+      - BUCKET_NAME=$BUCKET_NAME_ENV
+      - FOLDER_NAME=$FOLDER_NAME_ENV
+      - SECRET_KEY=$SECRET_KEY_ENV
