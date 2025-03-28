@@ -11,6 +11,7 @@ import org.springframework.core.io.Resource;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FilterInputStream;
 import java.io.IOException;
 
 @Configuration
@@ -22,11 +23,14 @@ public class FirebaseConfig {
     @PostConstruct
     public void init() throws IOException {
         Resource resource = new ClassPathResource("ejemplos-keys.json");
+        var serviceAccount =  resource.getInputStream();
+
 //        FileInputStream serviceAccount =
 //                new FileInputStream("src/main/resources/ejemplos-keys.json");
 
+
         FirebaseOptions options = FirebaseOptions.builder()
-                .setCredentials(GoogleCredentials.fromStream(resource.getInputStream()))
+                .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                 .setStorageBucket(bucketname)
                 .build();
         FirebaseApp.initializeApp(options);
