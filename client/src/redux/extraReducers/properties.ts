@@ -1,8 +1,8 @@
 
 
-const mainhost = import.meta.env.DEV?'localhost:3005':window.location.host;
+const mainhost = import.meta.env.DEV?'http://localhost:3005':window.location.origin;
 
 
-export const apiBase = `http://${mainhost}/api`;
+export const apiBase = `${mainhost}/api`;
 
 export const size = 10;

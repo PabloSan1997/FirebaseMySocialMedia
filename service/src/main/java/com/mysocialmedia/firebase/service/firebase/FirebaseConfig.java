@@ -18,20 +18,18 @@ public class FirebaseConfig {
     @Value("${bucket.name}")
     private String bucketname;
 
-    @Value("${servce.media}")
-    private String servicemedia;
 
     @PostConstruct
     public void init() throws IOException {
-//        Resource resource = new ClassPathResource("ejemplos-keys.json");
-//        var serviceAccount =  resource.getInputStream();
+        Resource resource = new ClassPathResource("ejemplos-keys.json");
+        var serviceAccount =  resource.getInputStream();
 //
 //        FileInputStream serviceAccount =
 //                new FileInputStream("src/main/resources/ejemplos-keys.json");
 
 
         FirebaseOptions options = FirebaseOptions.builder()
-                .setCredentials(GoogleCredentials.fromStream(new ByteArrayInputStream(servicemedia.getBytes(StandardCharsets.UTF_8))))
+                .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                 .setStorageBucket(bucketname)
                 .build();
         FirebaseApp.initializeApp(options);
