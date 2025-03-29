@@ -57,3 +57,11 @@ $mygreen:rgb(209, 231, 209);
         }
     }
 }
+
+@media (width<400px) {
+    .area_image{
+        .border_image_full{
+            height: 15rem;
+        }
+    }
+}

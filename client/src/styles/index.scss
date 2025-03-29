@@ -70,3 +70,9 @@ p{
         transform: rotate(360deg) scale(1);
     }
 }
+
+@media (width<344px) {
+    body{
+        width: 344px;
+    }
+}

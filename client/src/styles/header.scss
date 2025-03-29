@@ -1,42 +1,48 @@
 @use 'colors.scss' as *;
 
-header{
+header {
     display: flex;
     height: 3.8rem;
     background: $malachite-950;
-    h1{
+
+    h1 {
         margin: auto 1rem;
         cursor: pointer;
         user-select: none;
         transition: transform 0.3s ease;
-        color:$malachite-50;
-        &:hover{
+        color: $malachite-50;
+        &:hover {
             transform: scale(1.1);
         }
     }
-    .user_header{
+
+    .user_header {
         margin: auto 1rem auto auto;
         display: flex;
         transition: transform 0.3s ease;
         text-decoration: none;
         color: black;
-        &:hover{
+
+        &:hover {
             transform: scale(1.2);
             cursor: pointer;
         }
-        .name_user{
+
+        .name_user {
             margin: auto;
-            color:$malachite-50;
+            color: $malachite-50;
             user-select: none;
         }
-        img{
+
+        img {
             width: 2rem;
             height: 2rem;
             border-radius: 100%;
             margin-right: 0.3rem;
         }
     }
-    .logout{
+
+    .logout {
         margin: auto 1rem;
         border: none;
         background: none;
@@ -45,8 +51,31 @@ header{
         padding: 0.3rem 0.5rem;
         cursor: pointer;
         border-radius: 0.3rem;
-        &:hover{
+
+        &:hover {
             background: $malachite-800;
         }
     }
+}
+
+
+@media (width<390px) {
+    header {
+        .user_header {
+            margin: auto 0.5rem auto auto;
+        }
+        .logout{
+            margin: auto 1rem auto 0;
+            font-size: 1rem;
+        }
+    }
+
+}
+@media (width<359px) {
+    header {
+       h1{
+        font-size: 1.4rem;
+       }
+    }
+
 }
