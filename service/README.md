@@ -274,11 +274,11 @@ GET /friend/followsfriend/{username}
 #### Path
 
 ```http
-GET /friend/followings/{username}
+GET /friend/followings/{username}?size={number}&page={number}
 ```
 
 ```http
-GET /friend/followers/{username}
+GET /friend/followers/{username}?size={number}&page={number}
 ```
 
 #### Headers
@@ -492,7 +492,7 @@ POST /interaction/like/{idImage}
 
 ```json
 {
-  "Authorization": "Bearer {token}",
+  "Authorization": "Bearer {token}"
 }
 ```
 
@@ -508,3 +508,164 @@ No Content
   "userLike": "boolean"
 }
 ```
+
+---
+
+### Delete image
+
+#### Path
+
+```http
+DELETE /image/{idImage}
+```
+
+#### Headers
+
+```json
+{
+  "Authorization": "Bearer {token}"
+}
+```
+
+#### Response
+No Content (204)
+
+---
+
+### Delete Comment
+
+#### Path
+
+```http
+DELETE /interaction/comment/{idComment}
+```
+
+#### Headers
+
+```json
+{
+  "Authorization": "Bearer {token}"
+}
+```
+
+#### Body
+No Content (204)
+
+---
+
+### Find images
+
+#### Path
+
+```http
+GET /image?page={number}&size={number}
+```
+
+#### Headers
+
+```json
+{
+  "Authorization": "Bearer {token}"
+}
+```
+
+#### Response
+
+```json
+[
+  {
+    "id": "number",
+    "urlImage": "string",
+    "description": "string",
+    "likes": "number",
+    "comments": "number",
+    "createAt": "string",
+    "userLike": "boolean",
+    "user": {
+      "username": "string",
+      "fullname": "string",
+      "urlImage": "string"
+    }
+  }
+]
+```
+
+---
+
+### Find Followings users images
+
+#### Path
+
+```http
+GET /image/following?page={number}&size={number}
+```
+
+#### Headers
+
+```json
+{
+  "Authorization": "Bearer {token}"
+}
+```
+
+#### Response
+
+```json
+[
+  {
+    "id": "number",
+    "urlImage": "string",
+    "description": "string",
+    "likes": "number",
+    "comments": "number",
+    "createAt": "string",
+    "userLike": "boolean",
+    "user": {
+      "username": "string",
+      "fullname": "string",
+      "urlImage": "string"
+    }
+  }
+]
+```
+
+---
+
+### Find images by username
+
+#### Path
+
+```http
+GET /image/user/{username}?page={number}&size={number}
+```
+
+#### Headers
+
+```json
+{
+  "Authorization": "Bearer {token}"
+}
+```
+
+#### Response
+
+```json
+[
+  {
+    "id": "number",
+    "urlImage": "string",
+    "description": "string",
+    "likes": "number",
+    "comments": "number",
+    "createAt": "string",
+    "userLike": "boolean",
+    "user": {
+      "username": "string",
+      "fullname": "string",
+      "urlImage": "string"
+    }
+  }
+]
+```
+
+---
