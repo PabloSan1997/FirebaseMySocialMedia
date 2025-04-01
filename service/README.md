@@ -1,7 +1,5 @@
 # Social media service
 
-
-
 ## Http Requests
 
 Most requests are json except for the update image.
@@ -34,6 +32,7 @@ POST /user/register
   "fullname": "string"
 }
 ```
+
 #### Response
 
 ```json
@@ -69,6 +68,7 @@ POST /user/login
   "password": "string"
 }
 ```
+
 #### Response
 
 ```json
@@ -113,6 +113,7 @@ No Content
 ```http
 POST /user/profile
 ```
+
 #### Headers
 
 ```json
@@ -130,6 +131,7 @@ POST /user/profile
   "born": "string"
 }
 ```
+
 #### Response
 
 ```json
@@ -163,7 +165,7 @@ POST /user/imageprofile
 
 #### Body
 
-This request uses form-data or multipart form instead of JSON.
+This request uses form-data or multipart/form-data instead of JSON for file uploads.
 
 | Name  | Value                            |
 |-------|----------------------------------|
@@ -204,10 +206,11 @@ No content
 
 ```json
 {
-	"followings": "number",
-	"followers": "number"
+  "followings": "number",
+  "followers": "number"
 }
 ```
+
 ---
 
 ### Count followers and followings user main
@@ -290,11 +293,11 @@ GET /friend/followers/{username}
 
 ```json
 [
-	{
-		"username": "string",
-		"fullname": "string",
-		"urlImage": "string"
-	}
+  {
+    "username": "string",
+    "fullname": "string",
+    "urlImage": "string"
+  }
 ]
 ```
 
@@ -320,6 +323,188 @@ GET /friend/viewfollow/{username}
 
 ```json
 {
-	"viewFollow": "boolean"
+  "viewFollow": "boolean"
+}
+```
+
+---
+
+### Find user info header
+
+#### Path
+
+```http
+GET /user/headeruser
+```
+
+#### Headers
+
+```json
+{
+  "Authorization": "Bearer {token}"
+}
+```
+
+#### Body
+
+```json
+{
+  "username": "string",
+  "fullname": "sring",
+  "urlImage": "string"
+}
+```
+
+---
+
+### Get information about the main user and another user
+
+#### Path
+
+```http
+GET /user/userinfo
+```
+
+```http
+GET /friend/infouser/{username}
+```
+
+#### Headers
+
+```json
+{
+  "Authorization": "Bearer {token}"
+}
+```
+
+#### Response
+
+```json
+{
+	"username": "string",
+	"fullname": "string",
+	"description": "string",
+	"urlImage": "string",
+	"born": "string",
+	"createCount": "string"
+}
+```
+
+---
+
+### Add new image post
+
+#### Path
+
+```http
+POST /image
+```
+
+#### Headers
+
+```json
+{
+  "Authorization": "Bearer {token}"
+}
+```
+
+#### Body
+
+This request uses form-data or multipart/form-data instead of JSON for file uploads.
+
+| Name  | Value|
+|-------|------|
+| image | file.{image format(jpg, png...)}|
+| description | string |
+
+#### Response
+
+```json
+{
+  "id": "number",
+  "urlImage": "string",
+  "description": "string",
+  "likes": "number",
+  "comments": "number",
+  "createAt": "string",
+  "userLike": "boolean",
+  "user": {
+    "username": "string",
+    "fullname": "string",
+    "urlImage": "string"
+  }
+}
+```
+
+---
+
+### Add new comment
+
+#### Path
+
+```http
+POST /interaction/comment/{idImage}
+```
+
+#### Headers
+
+```json
+{
+  "Authorization": "Bearer {token}",
+  "Content-Type": "application/json"
+}
+```
+
+#### Body
+
+```json
+{
+  "comment":"string"
+}
+```
+
+#### Response
+
+```json
+{
+  "id": "number",
+  "comment": "string",
+  "createAt": "string",
+  "user": {
+    "username": "string",
+    "fullname": "string",
+    "urlImage": "string"
+  }
+}
+```
+
+---
+
+### Generate like
+
+#### Path
+
+```http
+POST /interaction/like/{idImage}
+```
+
+#### Headers
+
+```json
+{
+  "Authorization": "Bearer {token}",
+}
+```
+
+#### Body
+
+No Content
+
+#### Response
+
+```json
+{
+  "idImage": "number",
+  "userLike": "boolean"
 }
 ```
