@@ -95,5 +95,107 @@ POST /user/logout
 
 #### Body
 
-No Content (204)
+No Content
 
+#### Response
+
+No Content
+
+### Update user info
+
+#### Path
+
+```http
+POST /user/profile
+```
+#### Headers
+
+```json
+{
+  "Authorization": "Bearer {token}",
+  "Content-Type": "application/json"
+}
+```
+
+#### Body
+
+```json
+{
+  "description": "string",
+  "born": "string"
+}
+```
+#### Response
+
+```json
+{
+  "username": "string",
+  "fullname": "string",
+  "description": "string",
+  "urlImage": "string",
+  "born": "string",
+  "createCount": "string"
+}
+```
+
+### Update profile picture
+
+#### Path
+
+```http
+POST /user/imageprofile
+```
+
+#### Headers
+
+```json
+{
+  "Authorization": "Bearer {token}"
+}
+```
+
+#### Body
+
+This request uses form-data or multipart form instead of JSON.
+
+| Name  | Value                            |
+|-------|----------------------------------|
+| image | file.{image format(jpg, png...)} |
+
+#### Response
+
+```json
+{
+  "filename": "string",
+  "urlImage": "string"
+}
+```
+
+### Create Follow
+
+#### Path
+
+```http
+POST /friend/{username}
+```
+
+#### Headers
+
+```json
+{
+  "Authorization": "Bearer {token}"
+}
+```
+
+#### Body
+
+No content
+
+#### Response
+
+```json
+{
+	"followings": "number",
+	"followers": "number"
+}
+```
