@@ -43,6 +43,7 @@ POST /user/register
 }
 ```
 
+---
 
 ### Login
 
@@ -77,6 +78,8 @@ POST /user/login
 }
 ```
 
+---
+
 ### Logout
 
 #### Path
@@ -100,6 +103,8 @@ No Content
 #### Response
 
 No Content
+
+---
 
 ### Update user info
 
@@ -138,6 +143,8 @@ POST /user/profile
 }
 ```
 
+---
+
 ### Update profile picture
 
 #### Path
@@ -171,6 +178,8 @@ This request uses form-data or multipart form instead of JSON.
 }
 ```
 
+---
+
 ### Create Follow
 
 #### Path
@@ -197,5 +206,120 @@ No content
 {
 	"followings": "number",
 	"followers": "number"
+}
+```
+---
+
+### Count followers and followings user main
+
+#### Path
+
+```http
+GET /friend/mainfollows
+```
+
+#### Headers
+
+```json
+{
+  "Authorization": "Bearer {token}"
+}
+```
+
+#### Response
+
+```json
+{
+  "followings": "number",
+  "followers": "number"
+}
+
+```
+
+---
+
+### Count followers and followings user
+
+#### Path
+
+```http
+GET /friend/followsfriend/{username}
+```
+
+#### Headers
+
+```json
+{
+  "Authorization": "Bearer {token}"
+}
+```
+
+#### Response
+
+```json
+{
+  "followings": "number",
+  "followers": "number"
+}
+
+```
+
+---
+
+### Find Followers or Followings
+
+#### Path
+
+```http
+GET /friend/followings/{username}
+```
+
+```http
+GET /friend/followers/{username}
+```
+
+#### Headers
+
+```json
+{
+  "Authorization": "Bearer {token}"
+}
+```
+
+#### Response
+
+```json
+[
+	{
+		"username": "string",
+		"fullname": "string",
+		"urlImage": "string"
+	}
+]
+```
+
+---
+
+### Check if user main follows other user
+
+#### Path
+
+```http
+GET /friend/viewfollow/{username}
+```
+
+#### Headers
+
+```json
+{
+  "Authorization": "Bearer {token}"
+}
+```
+
+#### Response
+
+```json
+{
+	"viewFollow": "boolean"
 }
 ```
