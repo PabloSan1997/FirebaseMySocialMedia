@@ -59,7 +59,7 @@ jwt.secret.key=${SECRET_KEY}
 
 The variables that belong to the JPA configuration use postgrase driver.
 
-`bucket.name` and `folder.name` gets from Firebase storage.
+`bucket.name` and `folder.name` are retrieved from Firebase Storage.
 
 `jwt.secret.key` is to sign a jsonwebtoken.
 
