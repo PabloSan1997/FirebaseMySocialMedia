@@ -1,11 +1,51 @@
 # Social media service
 
+## Technologies
+
+- Languages: Java
+- Framework: Spring boot
+- Libraries: Jsonwebtoken, Security, Spring web, Validation, JPA.
+- Database: Postgresql, Firebase storage.
+
+## Instalation and configuration
+
+Clone or download this repository
+
+In this section explains how to configure service part app of this social media.
+
+This service use two different profiles in `application.properties`: `application-dev.properties` and `application-prod.properties`.
+An application profile contains this information:
+
+```
+server.port=${PORT}
+
+spring.jpa.hibernate.ddl-auto=none
+spring.datasource.url=${URL_DB}
+spring.datasource.username=${USERNAME}
+spring.datasource.password=${PASSWORD}
+spring.jpa.show-sql=false
+
+
+bucket.name=${BUCKET_NAME}
+folder.name=${FOLDER_NAME}
+
+jwt.secret.key=${SECRET_KEY}
+```
+
+The variables that belong to the JPA configuration use postgrase driver.
+
+`bucket.name` and `folder.name` gets from Firebase storage.
+
+`jwt.secret.key` is to sign a jsonwebtoken.
+
+Finally, you must generate a new `private key` from Firebase, the generated JSON is placed in the `resources` folder and renamed to `ejemplos-keys.json`.
+
 ## Http Requests
 
 Most requests are json except for the update image.
 
 All request have the same `/api` base, for example `/api/user/login`,
-however we are going to omit it to explain the requests
+however we are going to omit it to explain the requests.
 
 ### Register new user
 
@@ -668,4 +708,3 @@ GET /image/user/{username}?page={number}&size={number}
 ]
 ```
 
----
