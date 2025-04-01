@@ -2,5 +2,3 @@
 
 
 
-
-[![diagram](./diagrams/table.png "diagram")](./diagrams/table.png "diagram")

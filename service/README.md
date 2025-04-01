@@ -1,5 +1,25 @@
 # Social media service
 
+## How the Service Works
+
+This service requires an authentication and authorization request except for login and register.
+
+When a user logs in or registers, a JWT is generated and stored in a database table along with its creation date and session status set to 'true.' If the user logs out using their JWT, the status is updated to 'false,' and the timestamp of this change is recorded in an update date column.
+
+All users have the "USER" role, which grants access to perform all main requests, including:
+
+- Updating their own user info
+- Updating their picture profile
+- Posting new image with a description
+- Liking a photo
+- Commenting a photo
+- Following another user
+- Viewing images of the users their follow
+- Viewiwng other users info and images
+- Checking if a logged-in user follows other user.
+- Deleting an image or comment.
+
+
 ## Technologies
 
 - Languages: Java
@@ -44,6 +64,10 @@ The variables that belong to the JPA configuration use postgrase driver.
 `jwt.secret.key` is to sign a jsonwebtoken.
 
 Finally, you must generate a new `private key` from Firebase, the generated JSON is placed in the `resources` folder and renamed to `ejemplos-keys.json`.
+
+## Tables and relations
+
+[![diagram](../diagrams/table.png "diagram")](../diagrams/table.png "diagram")
 
 ## Http Requests
 
