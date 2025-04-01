@@ -14,6 +14,11 @@ Clone or download this repository
 In this section explains how to configure service part app of this social media.
 
 This service use two different profiles in `application.properties`: `application-dev.properties` and `application-prod.properties`.
+
+`application-dev.properties` is for dev mode.
+
+`application-prod.properties` is for production using docker.
+
 An application profile contains this information:
 
 ```
