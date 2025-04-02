@@ -34,7 +34,7 @@ export function ListFollow() {
 
   return (
     <>
-      <h2 className="follow_title">{convertUpperTitle(typefollow as string)}</h2>
+      <h2 className="follow_title">{convertUpperTitle(typefollow as string)}{name?.trim()?`: ${name.trim()}`:''}</h2>
       <div className="area_follows">
         {socialstate.followHeaderUserInfo.map(p => <UserTitle key={p.username} {...p} createAt='' />)}
       </div>
