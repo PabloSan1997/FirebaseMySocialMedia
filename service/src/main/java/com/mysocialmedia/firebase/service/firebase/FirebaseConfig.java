@@ -10,7 +10,6 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 
 @Configuration
 public class FirebaseConfig {

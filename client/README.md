@@ -12,7 +12,7 @@ These files are the frontend part.
 
 - Clone or download this repository
 
-In the frontend files write the following commands:
+- In the frontend files write the following commands:
 
 `npm installl`
 
