@@ -4,7 +4,6 @@ package com.mysocialmedia.firebase.service.security;
 import com.mysocialmedia.firebase.service.security.filters.JwtValidationFilter;
 import com.mysocialmedia.firebase.service.services.utils.InitialService;
 import com.mysocialmedia.firebase.service.services.utils.JwtService;
-import jakarta.annotation.PostConstruct;
 import jakarta.servlet.MultipartConfigElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
