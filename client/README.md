@@ -1,12 +1,23 @@
 # Client Social media
 
-These files are the frontend app.
+These files are the frontend part.
 
 ## Technologies
 
 - Languages: Typescript, Sass
-- Tool development: [Vite](https://vite.dev/ "Vite")
+- Tool development: [Vite](https://vite.dev/ "Vite"), NodeJS
 - Libraries: React, React Router Dom, [Redux Toolkit](https://redux-toolkit.js.org/ "Redux Toolkit")
+
+## Instalation
+
+- Clone or download this repository
+
+In the frontend files write the following commands:
+
+`npm installl`
+
+`npm run dev` - Starts the application in development mode.
+`npm run build` - Generates the static files for production.
 
 ## Paths and Screenshots
 
